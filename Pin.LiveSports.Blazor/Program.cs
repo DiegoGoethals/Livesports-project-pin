@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
-using Pin.LiveSports.Blazor.Data;
 
 namespace Pin.LiveSports.Blazor
 {
@@ -13,7 +12,7 @@ namespace Pin.LiveSports.Blazor
             // Add services to the container.
             builder.Services.AddRazorPages();
             builder.Services.AddServerSideBlazor();
-            builder.Services.AddSingleton<WeatherForecastService>();
+            builder.Services.AddSignalR();
 
             var app = builder.Build();
 
@@ -32,6 +31,9 @@ namespace Pin.LiveSports.Blazor
             app.UseRouting();
 
             app.MapBlazorHub();
+
+            // app.MapHub<>("/");
+
             app.MapFallbackToPage("/_Host");
 
             app.Run();

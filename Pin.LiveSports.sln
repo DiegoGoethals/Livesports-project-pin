@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33627.172
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pin.LiveSports.Blazor", "Pin.LiveSports.Blazor\Pin.LiveSports.Blazor.csproj", "{655AC7E8-CF67-47EE-A5D5-EBB0C86F5115}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pin.LiveSports.Blazor", "Pin.LiveSports.Blazor\Pin.LiveSports.Blazor.csproj", "{655AC7E8-CF67-47EE-A5D5-EBB0C86F5115}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pin.LiveSports.Core", "Pin.LiveSports.Core\Pin.LiveSports.Core.csproj", "{F778AF88-0DB8-49B5-AD61-10A906C6538A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pin.LiveSports.Core", "Pin.LiveSports.Core\Pin.LiveSports.Core.csproj", "{F778AF88-0DB8-49B5-AD61-10A906C6538A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pin.LiveSports.Infrastructure", "Pin.LiveSports.Infrastructure\Pin.LiveSports.Infrastructure.csproj", "{C1A2022E-9E05-4C0B-86E3-4C206E96B8E7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{F778AF88-0DB8-49B5-AD61-10A906C6538A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F778AF88-0DB8-49B5-AD61-10A906C6538A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F778AF88-0DB8-49B5-AD61-10A906C6538A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C1A2022E-9E05-4C0B-86E3-4C206E96B8E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C1A2022E-9E05-4C0B-86E3-4C206E96B8E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C1A2022E-9E05-4C0B-86E3-4C206E96B8E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C1A2022E-9E05-4C0B-86E3-4C206E96B8E7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

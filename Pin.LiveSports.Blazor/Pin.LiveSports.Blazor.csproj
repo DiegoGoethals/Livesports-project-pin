@@ -6,4 +6,16 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Data\" />
+    <Folder Include="Hubs\" />
+    <Folder Include="Components\" />
+    <Folder Include="Models\" />
+    <Folder Include="wwwroot\js\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Pin.LiveSports.Infrastructure\Pin.LiveSports.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>
