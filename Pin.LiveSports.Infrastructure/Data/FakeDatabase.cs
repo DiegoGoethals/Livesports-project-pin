@@ -6,11 +6,13 @@ namespace Pin.LiveSports.Infrastructure.Data
     // Fake database to store data, I will store 4 teams of 10 players each here for testing purposes
     public class FakeDatabase : IFakeDataBase
     {
-        public ICollection<Team> Teams;
-        public ICollection<Game> Games;
+        private ICollection<Team> Teams;
+        private ICollection<Game> Games;
 
         public FakeDatabase()
-        { 
+        {
+            Teams = new List<Team>();
+            Games = new List<Game>();
             PopulateTeams();
             GenerateGames();
         }

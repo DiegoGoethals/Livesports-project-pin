@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pin.LiveSports.Blazor", "Pi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pin.LiveSports.Core", "Pin.LiveSports.Core\Pin.LiveSports.Core.csproj", "{F778AF88-0DB8-49B5-AD61-10A906C6538A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pin.LiveSports.Infrastructure", "Pin.LiveSports.Infrastructure\Pin.LiveSports.Infrastructure.csproj", "{C1A2022E-9E05-4C0B-86E3-4C206E96B8E7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pin.LiveSports.Infrastructure", "Pin.LiveSports.Infrastructure\Pin.LiveSports.Infrastructure.csproj", "{C1A2022E-9E05-4C0B-86E3-4C206E96B8E7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
