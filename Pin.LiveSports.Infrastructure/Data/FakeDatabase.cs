@@ -11,13 +11,16 @@ namespace Pin.LiveSports.Infrastructure.Data
     public class FakeDatabase
     {
         public ICollection<Team> Teams;
+        public ICollection<Game> Games;
 
         public FakeDatabase()
         { 
             PopulateTeams();
+            GenerateGames();
         }
         
-        public void PopulateTeams()
+        // This method populates the teams with players
+        private void PopulateTeams()
         {
             var Team1 = new Team
             {
@@ -95,6 +98,33 @@ namespace Pin.LiveSports.Infrastructure.Data
             Teams.Add(Team2);
             Teams.Add(Team3);
             Teams.Add(Team4);
+        }
+
+        // This generates 2 games for the start of the application
+        private void GenerateGames()
+        {
+            var game1 = new Game
+            {
+                HomeTeam = Teams.ElementAt(0),
+                AwayTeam = Teams.ElementAt(1),
+                HomeTeamScore = 0,
+                AwayTeamScore = 0,
+                Events = new List<MatchEvent>(),
+                StartTime = DateTime.Now.AddHours(1)
+            };
+
+            var game2 = new Game
+            {
+                HomeTeam = Teams.ElementAt(2),
+                AwayTeam = Teams.ElementAt(3),
+                HomeTeamScore = 0,
+                AwayTeamScore = 0,
+                Events = new List<MatchEvent>(),
+                StartTime = DateTime.Now.AddHours(2)
+            };
+
+            Games.Add(game1);
+            Games.Add(game2);
         }
     }
 }
