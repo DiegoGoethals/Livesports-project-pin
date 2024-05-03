@@ -13,5 +13,6 @@ namespace Pin.LiveSports.Core.Entities
         public Team HomeTeam { get; set; }
         public Team AwayTeam { get; set; }
         public ICollection<MatchEvent> Events { get; set; }
+        public DateTime StartTime { get; set; }
     }
 }
