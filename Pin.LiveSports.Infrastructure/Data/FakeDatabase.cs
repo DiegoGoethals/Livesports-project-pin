@@ -1,14 +1,10 @@
 ﻿using Pin.LiveSports.Core.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Pin.LiveSports.Core.Interfaces;
 
 namespace Pin.LiveSports.Infrastructure.Data
 {
     // Fake database to store data, I will store 4 teams of 10 players each here for testing purposes
-    public class FakeDatabase
+    public class FakeDatabase : IFakeDataBase
     {
         public ICollection<Team> Teams;
         public ICollection<Game> Games;
@@ -18,7 +14,28 @@ namespace Pin.LiveSports.Infrastructure.Data
             PopulateTeams();
             GenerateGames();
         }
-        
+
+        public ICollection<Team> GetTeams()
+        {
+            return Teams;
+        }
+
+        public ICollection<Game> GetGames()
+        {
+            return Games;
+        }
+
+        public void AddGame(Game game)
+        {
+            Games.Add(game);
+        }
+
+        public void UpdateGame(int id, Game game)
+        {
+            var gameToUpdate = Games.FirstOrDefault(g => g.Id == id);
+            gameToUpdate = game;
+        }
+
         // This method populates the teams with players
         private void PopulateTeams()
         {
@@ -105,6 +122,7 @@ namespace Pin.LiveSports.Infrastructure.Data
         {
             var game1 = new Game
             {
+                Id = 1,
                 HomeTeam = Teams.ElementAt(0),
                 AwayTeam = Teams.ElementAt(1),
                 HomeTeamScore = 0,
@@ -115,6 +133,7 @@ namespace Pin.LiveSports.Infrastructure.Data
 
             var game2 = new Game
             {
+                Id = 2,
                 HomeTeam = Teams.ElementAt(2),
                 AwayTeam = Teams.ElementAt(3),
                 HomeTeamScore = 0,

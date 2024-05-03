@@ -8,6 +8,7 @@ namespace Pin.LiveSports.Core.Entities
 {
     public class Game
     {
+        public int Id { get; set; }
         public int HomeTeamScore { get; set; }
         public int AwayTeamScore { get; set; }
         public Team HomeTeam { get; set; }
