@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using Pin.LiveSports.Infrastructure.Data;
 
 namespace Pin.LiveSports.Blazor
 {
@@ -13,6 +14,8 @@ namespace Pin.LiveSports.Blazor
             builder.Services.AddRazorPages();
             builder.Services.AddServerSideBlazor();
             builder.Services.AddSignalR();
+
+            builder.Services.AddSingleton<FakeDatabase>();
 
             var app = builder.Build();
 
