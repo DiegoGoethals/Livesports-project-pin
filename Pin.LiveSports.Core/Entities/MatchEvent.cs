@@ -11,6 +11,6 @@ namespace Pin.LiveSports.Core.Entities
         public string Description { get; set; }
         public int Time { get; set; }
         public Team Team { get; set; }
-        public Player Player { get; set; }
+        public ICollection<Player> Players { get; set; }
     }
 }

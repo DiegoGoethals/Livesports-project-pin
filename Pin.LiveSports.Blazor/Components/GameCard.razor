@@ -1,0 +1,11 @@
+﻿@using Pin.LiveSports.Core.Entities
+
+<div>
+	<h4>@game.HomeTeam.Name - @game.AwayTeam.Name</h4>
+	<p>@game.StartTime</p>
+</div>
+
+@code {
+	[Parameter]
+	public Game game { get; set; }
+}

@@ -1,16 +1,11 @@
-﻿@page "/games"
-
-@using Pin.LiveSports.Core.Entities
+﻿@using Pin.LiveSports.Core.Entities
 @using Pin.LiveSports.Core.Interfaces.Services
 @inject IGameService GameService
 
 <h3>Games</h3>
 @foreach (var game in games)
 {
-	<div>
-		<h4>@game.HomeTeam.Name - @game.AwayTeam.Name</h4>
-		<p>@game.StartTime</p>
-	</div>
+	<GameCard game="game" />
 }
 
 @code {
