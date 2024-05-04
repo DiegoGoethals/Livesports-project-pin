@@ -21,6 +21,7 @@ namespace Pin.LiveSports.Blazor
             builder.Services.AddSingleton<IFakeDataBase, FakeDatabase>();
 
             builder.Services.AddScoped<IGameService, GameService>();
+            builder.Services.AddScoped<IMatchEventService, MatchEventService>();
 
             var app = builder.Build();
 

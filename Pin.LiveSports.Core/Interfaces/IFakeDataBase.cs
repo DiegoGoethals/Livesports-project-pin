@@ -14,5 +14,6 @@ namespace Pin.LiveSports.Core.Interfaces
         void AddGame(Game game);
         void UpdateGame(int id, Game game);
         Game GetGame(int id);
+        ICollection<EventType> GetEventTypes();
     }
 }

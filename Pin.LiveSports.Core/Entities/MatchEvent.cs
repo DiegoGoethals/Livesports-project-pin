@@ -6,24 +6,6 @@ using System.Threading.Tasks;
 
 namespace Pin.LiveSports.Core.Entities
 {
-    public enum EventType
-    {
-        Score,
-        ShotAttempt,
-        TypeOfShot,
-        MissedShot,
-        MadeShot,
-        Foul,
-        Substitution,
-        Timeout,
-        Assist,
-        Rebound,
-        Steal,
-        Block,
-        Turnover,
-        Start,
-        End
-    }
     public class MatchEvent
     {
         public string Description { get; set; }

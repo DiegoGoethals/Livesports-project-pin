@@ -4,10 +4,16 @@
 @using Pin.LiveSports.Core.Interfaces.Services
 
 @inject IGameService GameService
+@inject IMatchEventService MatchEventService
 
 <PageTitle>Add Events</PageTitle>
 
 <h3>@game.HomeTeam.Name - @game.AwayTeam.Name</h3>
+
+@foreach (var eventType in eventTypes)
+{
+	<p>@eventType.Name</p>
+}
 
 @code {
 	[Parameter]
@@ -15,9 +21,12 @@
 
 	Game game;
 
+	ICollection<EventType> eventTypes;
+
 	protected override void OnInitialized()
 	{
 		game = GameService.GetById(int.Parse(gameId));
+		eventTypes = MatchEventService.GetEventTypes();
 	}
 }
 

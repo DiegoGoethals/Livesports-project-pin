@@ -1,5 +1,7 @@
 ﻿using Pin.LiveSports.Core.Entities;
 using Pin.LiveSports.Core.Interfaces;
+using static System.Formats.Asn1.AsnWriter;
+using System.IO;
 
 namespace Pin.LiveSports.Infrastructure.Data
 {
@@ -8,13 +10,16 @@ namespace Pin.LiveSports.Infrastructure.Data
     {
         private ICollection<Team> Teams;
         private ICollection<Game> Games;
+        private ICollection<EventType> EventTypes;
 
         public FakeDatabase()
         {
             Teams = new List<Team>();
             Games = new List<Game>();
+            EventTypes = new List<EventType>();
             PopulateTeams();
             GenerateGames();
+            PopulateEventTypes();
         }
 
         public ICollection<Team> GetTeams()
@@ -41,6 +46,11 @@ namespace Pin.LiveSports.Infrastructure.Data
         public Game GetGame(int id)
         {
                return Games.FirstOrDefault(g => g.Id == id);
+        }
+
+        public ICollection<EventType> GetEventTypes()
+        {
+            return EventTypes;
         }
 
         // This method populates the teams with players
@@ -151,6 +161,36 @@ namespace Pin.LiveSports.Infrastructure.Data
 
             Games.Add(game1);
             Games.Add(game2);
+        }
+
+        // Add all the event types
+        private void PopulateEventTypes()
+        {
+            var types = new List<string>
+            {
+                "Score",
+                "Field Goal Attempt",
+                "Three Point Attempt",
+                "Free Throw Attempt",
+                "Field Goal Made",
+                "Three Point Made",
+                "Free Throw Made",
+                "Foul",
+                "Substitution",
+                "Timeout",
+                "Assist",
+                "Rebound",
+                "Steal",
+                "Block",
+                "Turnover",
+                "Start",
+                "End"
+            };
+
+            foreach (var eventType in types)
+            {
+                EventTypes.Add(new EventType { Name = eventType });
+            }
         }
     }
 }
