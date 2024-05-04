@@ -1,0 +1,23 @@
+﻿@page "/reporter/add-events/{gameId}"
+
+@using Pin.LiveSports.Core.Entities
+@using Pin.LiveSports.Core.Interfaces.Services
+
+@inject IGameService GameService
+
+<PageTitle>Add Events</PageTitle>
+
+<h3>@game.HomeTeam.Name - @game.AwayTeam.Name</h3>
+
+@code {
+	[Parameter]
+	public string gameId { get; set; }
+
+	Game game;
+
+	protected override void OnInitialized()
+	{
+		game = GameService.GetById(int.Parse(gameId));
+	}
+}
+

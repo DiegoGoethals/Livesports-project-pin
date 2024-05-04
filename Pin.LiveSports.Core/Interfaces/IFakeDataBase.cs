@@ -13,5 +13,6 @@ namespace Pin.LiveSports.Core.Interfaces
         ICollection<Game> GetGames();
         void AddGame(Game game);
         void UpdateGame(int id, Game game);
+        Game GetGame(int id);
     }
 }

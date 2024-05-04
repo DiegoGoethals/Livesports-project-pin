@@ -38,6 +38,11 @@ namespace Pin.LiveSports.Infrastructure.Data
             gameToUpdate = game;
         }
 
+        public Game GetGame(int id)
+        {
+               return Games.FirstOrDefault(g => g.Id == id);
+        }
+
         // This method populates the teams with players
         private void PopulateTeams()
         {

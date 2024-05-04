@@ -17,5 +17,10 @@ namespace Pin.LiveSports.Core.Services
         {
             return _fakeDataBase.GetGames();
         }
+
+        public Game GetById(int id)
+        {
+            return _fakeDataBase.GetGame(id);
+        }
     }
 }

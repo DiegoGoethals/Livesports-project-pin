@@ -10,5 +10,6 @@ namespace Pin.LiveSports.Core.Interfaces.Services
     public interface IGameService
     {
         ICollection<Game> GetAll();
+        Game GetById(int id);
     }
 }
