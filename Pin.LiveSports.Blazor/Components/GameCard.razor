@@ -1,7 +1,7 @@
 ﻿@inject IUserService UserService
 @inject NavigationManager NavigationManager
 
-<div @onclick="GoToPage">
+<div @onclick="GoToPage" class="gamecard">
 	<h4>@game.HomeTeam.Name - @game.AwayTeam.Name</h4>
 	<p>@game.StartTime</p>
 </div>
