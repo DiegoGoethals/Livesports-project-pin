@@ -1,6 +1,7 @@
-﻿@using Pin.LiveSports.Core.Entities
+﻿@inject IUserService UserService
+@inject NavigationManager NavigationManager
 
-<div>
+<div @onclick="GoToPage">
 	<h4>@game.HomeTeam.Name - @game.AwayTeam.Name</h4>
 	<p>@game.StartTime</p>
 </div>
@@ -8,4 +9,23 @@
 @code {
 	[Parameter]
 	public Game game { get; set; }
+
+	private string userType;
+
+	protected override void OnInitialized()
+	{
+		userType = UserService.UserType;
+	}
+
+	private void GoToPage()
+	{
+		if (userType == "Reporter")
+		{
+			NavigationManager.NavigateTo($"/games/reporter/{game.Id}");
+		}
+		else
+		{
+			NavigationManager.NavigateTo($"/games/guest/{game.Id}");
+		}
+	}
 }
