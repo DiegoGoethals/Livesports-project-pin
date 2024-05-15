@@ -1,16 +1,23 @@
 ﻿@inject IGameService GameService
+@inject IUserService UserService
 
 <h3>Games</h3>
 @foreach (var game in games)
 {
-	<GameCard game="game" />
+	<GameCard game="game" userType="userType"/>
+}
+@if (userType == "Reporter")
+{
+	<a href="/games/reporter" class="btn btn-primary">Create Game</a>
 }
 
 @code {
 	ICollection<Game> games;
+	private string userType;
 
 	protected override void OnInitialized()
 	{
 		games = GameService.GetAll();
+		userType = UserService.UserType;
 	}
 }

@@ -1,21 +1,16 @@
-﻿@inject IUserService UserService
-@inject NavigationManager NavigationManager
+﻿@inject NavigationManager NavigationManager
 
 <div @onclick="GoToPage" class="gamecard">
 	<h4>@game.HomeTeam.Name - @game.AwayTeam.Name</h4>
-	<p>@game.StartTime</p>
+	<p>@game.StartTime.ToString("HH:mm")</p>
 </div>
 
 @code {
 	[Parameter]
 	public Game game { get; set; }
 
-	private string userType;
-
-	protected override void OnInitialized()
-	{
-		userType = UserService.UserType;
-	}
+	[Parameter]
+	public string userType { get; set; }
 
 	private void GoToPage()
 	{
