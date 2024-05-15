@@ -1,5 +1,6 @@
 ﻿@page "/reporter/add-events/{gameId}"
 
+@using Pin.LiveSports.Blazor.Components
 @using Pin.LiveSports.Core.Entities
 @using Pin.LiveSports.Core.Interfaces.Services
 
@@ -10,10 +11,7 @@
 
 <h3>@game.HomeTeam.Name - @game.AwayTeam.Name</h3>
 
-@foreach (var eventType in eventTypes)
-{
-	<p>@eventType.Name</p>
-}
+<AddEventForm game="game"/>
 
 @code {
 	[Parameter]

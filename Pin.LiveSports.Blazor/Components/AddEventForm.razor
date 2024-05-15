@@ -1,0 +1,79 @@
+﻿@using Pin.LiveSports.Core.Interfaces.Services
+@using Pin.LiveSports.Core.Entities
+
+@inject IGameService GameService
+@inject IMatchEventService MatchEventService
+
+<h3>Add Even to the game</h3>
+
+<form>
+    <div class="form-group">
+        <label for="eventType">Event Type</label>
+        <select class="form-control" id="eventType">
+            @foreach (var eventType in eventTypes)
+            {
+                <option value="@eventType.Name">@eventType.Name</option>
+            }
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="minute">Minute</label>
+        <input type="number" class="form-control" id="minute" placeholder="Enter minute">
+    </div>
+    <div class="form-group">
+        <label for="team">Team</label>
+        <select class="form-control" id="team" @onchange="OnTeamSelected">
+            <option value="">Select Team</option>
+            <option value="@homeTeam.Name">@homeTeam.Name</option>
+            <option value="@awayTeam.Name">@awayTeam.Name</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="player">Player</label>
+        <select class="form-control" id="player" disabled="@(!teamSelected)">
+            @foreach (var player in selectedTeamPlayers)
+            {
+                <option value="@player.Name">@player.Name</option>
+            }
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+@code {
+    [Parameter]
+    public Game game { get; set; }
+
+    ICollection<EventType> eventTypes;
+
+    Team homeTeam;
+    Team awayTeam;
+
+    bool teamSelected = false;
+    ICollection<Player> selectedTeamPlayers = new List<Player>();
+
+    protected override void OnInitialized()
+    {
+        eventTypes = MatchEventService.GetEventTypes();
+        homeTeam = game.HomeTeam;
+        awayTeam = game.AwayTeam;
+    }
+
+    private void OnTeamSelected(ChangeEventArgs e)
+    {
+        string selectedTeamName = e.Value.ToString();
+        if (selectedTeamName == homeTeam.Name)
+        {
+            selectedTeamPlayers = homeTeam.Players;
+        }
+        else if (selectedTeamName == awayTeam.Name)
+        {
+            selectedTeamPlayers = awayTeam.Players;
+        }
+        else
+        {
+            selectedTeamPlayers = new List<Player>();
+        }
+        teamSelected = true;
+    }
+}
