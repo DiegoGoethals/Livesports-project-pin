@@ -10,7 +10,6 @@
     <Folder Include="Data\" />
     <Folder Include="Hubs\" />
     <Folder Include="Models\" />
-    <Folder Include="wwwroot\js\" />
   </ItemGroup>
 
   <ItemGroup>

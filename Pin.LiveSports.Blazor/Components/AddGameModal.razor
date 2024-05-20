@@ -1,0 +1,91 @@
+﻿@inject IFakeDataBase FakeDatabase
+@inject IJSRuntime JSRuntime
+
+<dialog @ref="dialog">
+	<h3>Add a new game</h3>
+	<form @onsubmit="createGame">
+		<div class="form-group">
+			<label for="homeTeam">Home Team</label>
+			<select class="form-control" id="homeTeam" @onchange="OnHomeTeamChanged" required>
+				@foreach (var team in teams)
+				{
+					if (team != AwayTeam)
+					{
+						<option>@team.Name</option>
+					}
+				}
+			</select>
+		</div>
+		<div class="form-group">
+			<label for="awayTeam">Away Team</label>
+			<select class="form-control" id="awayTeam" @onchange="OnAwayTeamchanged" required>
+				@foreach (var team in teams)
+				{
+					if (team != HomeTeam)
+					{
+						<option>@team.Name</option>
+					}
+				}
+			</select>
+		</div>
+		<div class="form-group">
+			<label for="startTime">Start Time</label>
+			<input type="datetime" id="startTime" required @bind="startTime"/>
+		</div>
+		<button type="button" @onclick="CloseDialog">Cancel</button>
+		<button type="submit">Add Game</button>
+	</form>
+</dialog>
+
+@code {
+	private List<Team> teams = new List<Team>();
+	private Team HomeTeam;
+	private Team AwayTeam;
+	private DateTime startTime;
+
+	private ElementReference dialog;
+
+	protected override void OnInitialized()
+	{
+		teams = FakeDatabase.GetTeams().ToList();
+	}
+
+	private async Task createGame()
+	{
+		var game = new Game()
+		{
+			Id = FakeDatabase.GetGames().Count,
+			HomeTeam = HomeTeam,
+			AwayTeam = AwayTeam,
+			StartTime = startTime,
+			IsStarted = false,
+			Events = new List<MatchEvent>(),
+			HomeTeamScore = 0,
+			AwayTeamScore = 0
+		};
+		FakeDatabase.AddGame(game);
+		await CloseDialog();
+	}
+
+	private void OnHomeTeamChanged(ChangeEventArgs e)
+	{
+		var teamName = e.Value.ToString();
+		HomeTeam = teams.FirstOrDefault(team => team.Name == teamName);
+	}
+
+	private void OnAwayTeamchanged(ChangeEventArgs e)
+	{
+		var teamName = e.Value.ToString();
+		AwayTeam = teams.FirstOrDefault(team => team.Name == teamName);
+	}
+
+	public async Task Show()
+	{
+		await JSRuntime.InvokeVoidAsync("openDialog", dialog);
+	}
+
+	private async Task CloseDialog()
+	{
+		await JSRuntime.InvokeVoidAsync("closeDialog", dialog);
+	}
+}

@@ -8,16 +8,25 @@
 }
 @if (userType == "Reporter")
 {
-	<a href="/games/reporter" class="btn btn-primary">Create Game</a>
+	<button @onclick="ShowPopUp" class="btn btn-primary">Create Game</button>
 }
+
+<AddGameModal @ref="popUp"/>
 
 @code {
 	ICollection<Game> games;
 	private string userType;
 
+	private AddGameModal popUp;
+
 	protected override void OnInitialized()
 	{
 		games = GameService.GetAll();
 		userType = UserService.UserType;
+	}
+
+	private async Task ShowPopUp()
+	{
+		await popUp.Show();
 	}
 }
