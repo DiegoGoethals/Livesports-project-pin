@@ -1,11 +1,16 @@
 ﻿@inject IGameService GameService
 @inject IUserService UserService
+@inject NavigationManager Navigation
 
 <h3>Games</h3>
-@foreach (var game in games)
+@if (games != null)
 {
-	<GameCard game="game" userType="userType"/>
+	foreach (var game in games)
+	{
+		<GameCard game="game" userType="userType" />
+	}
 }
+
 @if (userType == "Reporter")
 {
 	<button @onclick="ShowPopUp" class="btn btn-primary">Create Game</button>
@@ -19,8 +24,21 @@
 
 	private AddGameModal popUp;
 
-	protected override void OnInitialized()
+	private HubConnection hubConnection;
+
+	protected override async Task OnInitializedAsync()
 	{
+		hubConnection = new HubConnectionBuilder()
+			.WithUrl(Navigation.ToAbsoluteUri("/gameshub"))
+			.Build();
+
+		hubConnection.On<Game>("UpdateGamesList", (game) =>
+		{
+			games.Add(game);
+			InvokeAsync(StateHasChanged);
+		});
+		await hubConnection.StartAsync();
+		
 		games = GameService.GetAll();
 		userType = UserService.UserType;
 	}

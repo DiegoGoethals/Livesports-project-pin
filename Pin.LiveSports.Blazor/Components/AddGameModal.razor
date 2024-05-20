@@ -1,5 +1,6 @@
 ﻿@inject IFakeDataBase FakeDatabase
 @inject IJSRuntime JSRuntime
+@inject NavigationManager Navigation
 
 <dialog @ref="dialog">
 	<h3>Add a new game</h3>
@@ -45,9 +46,19 @@
 
 	private ElementReference dialog;
 
-	protected override void OnInitialized()
+	private HubConnection hubConnection;
+
+	protected override async Task OnInitializedAsync()
 	{
+		hubConnection = new HubConnectionBuilder()
+			.WithUrl(Navigation.ToAbsoluteUri("/gameshub"))
+			.Build();
+
+		await hubConnection.StartAsync();
+
 		teams = FakeDatabase.GetTeams().ToList();
+		HomeTeam = teams[0];
+		AwayTeam = teams[1];
 	}
 
 	private async Task createGame()
@@ -63,6 +74,12 @@
 			HomeTeamScore = 0,
 			AwayTeamScore = 0
 		};
+
+		if (hubConnection is not null)
+		{
+			await hubConnection.SendAsync("AddGame", game);
+		}
+
 		FakeDatabase.AddGame(game);
 		await CloseDialog();
 	}

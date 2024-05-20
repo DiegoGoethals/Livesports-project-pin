@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.AspNetCore.ResponseCompression;
+using Pin.LiveSports.Blazor.Hubs;
 using Pin.LiveSports.Core.Interfaces;
 using Pin.LiveSports.Core.Interfaces.Services;
 using Pin.LiveSports.Core.Services;
@@ -17,18 +19,25 @@ namespace Pin.LiveSports.Blazor
             builder.Services.AddRazorPages();
             builder.Services.AddServerSideBlazor();
             builder.Services.AddSignalR();
+            builder.Services.AddResponseCompression(opts =>
+            {
+                opts.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(
+                   new[] { "application/octet-stream" });
+            });
 
-            builder.Services.AddSingleton<IFakeDataBase, FakeDatabase>();
+			builder.Services.AddSingleton<IFakeDataBase, FakeDatabase>();
 
             builder.Services.AddSingleton<IUserService, UserService>();
 
             builder.Services.AddScoped<IGameService, GameService>();
             builder.Services.AddScoped<IMatchEventService, MatchEventService>();
 
-            var app = builder.Build();
+			var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
-            if (!app.Environment.IsDevelopment())
+			app.UseResponseCompression();
+
+			// Configure the HTTP request pipeline.
+			if (!app.Environment.IsDevelopment())
             {
                 app.UseExceptionHandler("/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
@@ -43,7 +52,7 @@ namespace Pin.LiveSports.Blazor
 
             app.MapBlazorHub();
 
-            // app.MapHub<>("/");
+            app.MapHub<GamesHub>("/gameshub");
 
             app.MapFallbackToPage("/_Host");
 
