@@ -1,9 +1,4 @@
 ﻿using Pin.LiveSports.Core.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Pin.LiveSports.Core.Interfaces.Services
 {
@@ -11,5 +6,6 @@ namespace Pin.LiveSports.Core.Interfaces.Services
     {
         ICollection<Game> GetAll();
         Game GetById(int id);
+        void AddEvent(MatchEvent matchEvent);
     }
 }

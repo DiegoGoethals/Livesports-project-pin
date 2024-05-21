@@ -168,7 +168,6 @@ namespace Pin.LiveSports.Infrastructure.Data
         {
             var types = new List<string>
             {
-                "Score",
                 "Field Goal Attempt",
                 "Three Point Attempt",
                 "Free Throw Attempt",
@@ -191,6 +190,12 @@ namespace Pin.LiveSports.Infrastructure.Data
             {
                 EventTypes.Add(new EventType { Name = eventType });
             }
+        }
+
+        public void AddEvent(MatchEvent matchEvent)
+        {
+            var game = Games.FirstOrDefault(g => g.Id == matchEvent.GameId);
+            game.Events.Add(matchEvent);
         }
     }
 }

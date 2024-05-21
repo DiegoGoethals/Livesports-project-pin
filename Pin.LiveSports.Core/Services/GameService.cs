@@ -22,5 +22,10 @@ namespace Pin.LiveSports.Core.Services
         {
             return _fakeDataBase.GetGame(id);
         }
+
+        public void AddEvent(MatchEvent matchEvent)
+        {
+            _fakeDataBase.AddEvent(matchEvent);
+        }
     }
 }

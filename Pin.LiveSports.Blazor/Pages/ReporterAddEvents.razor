@@ -1,4 +1,4 @@
-﻿@page "/reporter/add-events/{gameId}"
+﻿@page "/games/reporter/{id}"
 
 @inject IGameService GameService
 @inject IMatchEventService MatchEventService
@@ -11,7 +11,7 @@
 
 @code {
 	[Parameter]
-	public string gameId { get; set; }
+	public string id { get; set; }
 
 	Game game;
 
@@ -19,7 +19,7 @@
 
 	protected override void OnInitialized()
 	{
-		game = GameService.GetById(int.Parse(gameId));
+		game = GameService.GetById(int.Parse(id));
 		eventTypes = MatchEventService.GetEventTypes();
 	}
 }

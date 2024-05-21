@@ -13,5 +13,6 @@ namespace Pin.LiveSports.Core.Entities
         public Team Team { get; set; }
         public ICollection<Player> Players { get; set; }
         public EventType EventType { get; set; }
+        public int GameId { get; set; }
     }
 }

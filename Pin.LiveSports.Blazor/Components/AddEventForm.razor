@@ -1,12 +1,13 @@
 ﻿@inject IGameService GameService
 @inject IMatchEventService MatchEventService
+@inject IFakeDataBase FakeDataBase
 
-<h3>Add Even to the game</h3>
+<h3>Add Event to the game</h3>
 
-<form>
+<form @onsubmit="AddEvent">
     <div class="form-group">
         <label for="eventType">Event Type</label>
-        <select class="form-control" id="eventType">
+        <select class="form-control" id="eventType" @onchange="setSelectedEventType">
             @foreach (var eventType in eventTypes)
             {
                 <option value="@eventType.Name">@eventType.Name</option>
@@ -15,7 +16,7 @@
     </div>
     <div class="form-group">
         <label for="minute">Minute</label>
-        <input type="number" class="form-control" id="minute" placeholder="Enter minute">
+        <input type="number" class="form-control" id="minute" placeholder="Enter minute" @onchange="setMinute">
     </div>
     <div class="form-group">
         <label for="team">Team</label>
@@ -27,7 +28,7 @@
     </div>
     <div class="form-group">
         <label for="player">Player</label>
-        <select class="form-control" id="player" disabled="@(!teamSelected)">
+        <select class="form-control" id="player" disabled="@(!teamSelected)" multiple>
             @foreach (var player in selectedTeamPlayers)
             {
                 <option value="@player.Name">@player.Name</option>
@@ -36,6 +37,13 @@
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>
+
+<ul>
+    @foreach (var matchEvent in game.Events)
+	{
+		<li>@matchEvent.EventType.Name, @matchEvent.Team.Name, @matchEvent.Time</li>
+	}
+</ul>
 
 @code {
     [Parameter]
@@ -49,6 +57,10 @@
     bool teamSelected = false;
     ICollection<Player> selectedTeamPlayers = new List<Player>();
 
+    private Team selectedTeam;
+    private EventType selectedEventType;
+    private int selectedMinute;
+
     protected override void OnInitialized()
     {
         eventTypes = MatchEventService.GetEventTypes();
@@ -61,10 +73,12 @@
         string selectedTeamName = e.Value.ToString();
         if (selectedTeamName == homeTeam.Name)
         {
+            selectedTeam = homeTeam;
             selectedTeamPlayers = homeTeam.Players;
         }
         else if (selectedTeamName == awayTeam.Name)
         {
+            selectedTeam = awayTeam;
             selectedTeamPlayers = awayTeam.Players;
         }
         else
@@ -72,5 +86,27 @@
             selectedTeamPlayers = new List<Player>();
         }
         teamSelected = true;
+    }
+
+    private void setSelectedEventType(ChangeEventArgs e)
+    {
+        string eventTypeName = e.Value.ToString();
+        selectedEventType = eventTypes.FirstOrDefault(et => et.Name == eventTypeName);
+    }
+
+    private void setMinute(ChangeEventArgs e)
+    {
+        selectedMinute = int.Parse(e.Value.ToString());
+    }
+
+    private void AddEvent()
+    {
+        GameService.AddEvent(new MatchEvent
+        {
+            Time = selectedMinute,
+            EventType = selectedEventType,
+            Team = selectedTeam,
+            GameId = game.Id
+        });
     }
 }
