@@ -7,7 +7,7 @@
 {
 	foreach (var game in games)
 	{
-		<GameCard game="game" userType="userType" />
+		<GameCard game="game" userType="@userType" />
 	}
 }
 
@@ -28,6 +28,9 @@
 
 	protected override async Task OnInitializedAsync()
 	{
+		userType = UserService.UserType;
+		games = GameService.GetAll();
+
 		hubConnection = new HubConnectionBuilder()
 			.WithUrl(Navigation.ToAbsoluteUri("/gameshub"))
 			.Build();
@@ -37,9 +40,6 @@
 			InvokeAsync(StateHasChanged);
 		});
 		await hubConnection.StartAsync();
-		
-		games = GameService.GetAll();
-		userType = UserService.UserType;
 	}
 
 	private async Task ShowPopUp()
