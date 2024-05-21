@@ -46,16 +46,11 @@
 
 	private ElementReference dialog;
 
-	private HubConnection hubConnection;
+	[Parameter]
+	public HubConnection hubConnection { get; set; }
 
-	protected override async Task OnInitializedAsync()
+	protected override void OnInitialized()
 	{
-		hubConnection = new HubConnectionBuilder()
-			.WithUrl(Navigation.ToAbsoluteUri("/gameshub"))
-			.Build();
-
-		await hubConnection.StartAsync();
-
 		teams = FakeDatabase.GetTeams().ToList();
 		HomeTeam = teams[0];
 		AwayTeam = teams[1];
@@ -79,7 +74,6 @@
 		{
 			await hubConnection.SendAsync("AddGame", game);
 		}
-
 		FakeDatabase.AddGame(game);
 		await CloseDialog();
 	}

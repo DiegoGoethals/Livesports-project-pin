@@ -16,7 +16,7 @@
 	<button @onclick="ShowPopUp" class="btn btn-primary">Create Game</button>
 }
 
-<AddGameModal @ref="popUp"/>
+<AddGameModal @ref="popUp" hubConnection="hubConnection"/>
 
 @code {
 	ICollection<Game> games;
@@ -34,7 +34,6 @@
 
 		hubConnection.On<Game>("UpdateGamesList", (game) =>
 		{
-			games.Add(game);
 			InvokeAsync(StateHasChanged);
 		});
 		await hubConnection.StartAsync();
