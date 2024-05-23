@@ -1,6 +1,7 @@
 ﻿@inject IGameService GameService
 @inject IMatchEventService MatchEventService
 @inject IFakeDataBase FakeDataBase
+@inject NavigationManager Navigation
 
 <h3>Add Event to the game</h3>
 
@@ -49,6 +50,8 @@
     [Parameter]
     public Game game { get; set; }
 
+    private HubConnection hubConnection { get; set; }
+
     ICollection<EventType> eventTypes;
 
     Team homeTeam;
@@ -61,11 +64,16 @@
     private EventType selectedEventType;
     private int selectedMinute;
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
         eventTypes = MatchEventService.GetEventTypes();
         homeTeam = game.HomeTeam;
         awayTeam = game.AwayTeam;
+
+        hubConnection = new HubConnectionBuilder()
+            .WithUrl(Navigation.ToAbsoluteUri("/gameshub"))
+            .Build();
+        await hubConnection.StartAsync();
     }
 
     private void OnTeamSelected(ChangeEventArgs e)
@@ -99,8 +107,12 @@
         selectedMinute = int.Parse(e.Value.ToString());
     }
 
-    private void AddEvent()
+    private async Task AddEvent()
     {
+        if (hubConnection is not null)
+        {
+            await hubConnection.SendAsync("UpdateGame", game);
+        }
         GameService.AddEvent(new MatchEvent
         {
             Time = selectedMinute,

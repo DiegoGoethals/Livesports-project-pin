@@ -1,0 +1,39 @@
+﻿@page "/games/guest/{id}"
+
+@inject IGameService GameService
+@inject IMatchEventService MatchEventService
+@inject NavigationManager Navigation
+
+<h3>@game.HomeTeam.Name - @game.AwayTeam.Name</h3>
+
+<ul>
+	@foreach (var matchEvent in game.Events)
+	{
+		<li>@matchEvent.EventType.Name, @matchEvent.Team.Name, @matchEvent.Time</li>
+	}
+</ul>
+
+
+@code {
+	[Parameter]
+	public string id { get; set; }
+
+	private HubConnection hubConnection;
+
+	Game game;
+
+	protected override async Task OnInitializedAsync()
+	{
+		game = GameService.GetById(int.Parse(id));
+
+		hubConnection = new HubConnectionBuilder()
+			.WithUrl(Navigation.ToAbsoluteUri("/gameshub"))
+			.Build();
+
+		hubConnection.On<Game>("UpdateGame", (game) =>
+		{
+			InvokeAsync(StateHasChanged);
+		});
+		await hubConnection.StartAsync();
+	}
+}

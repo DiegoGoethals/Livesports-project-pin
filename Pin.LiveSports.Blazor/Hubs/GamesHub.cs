@@ -9,5 +9,10 @@ namespace Pin.LiveSports.Blazor.Hubs
 		{
 			await Clients.All.SendAsync("UpdateGamesList", game);
 		}
+
+		public async Task UpdateGame(Game game)
+		{
+			await Clients.All.SendAsync("UpdateGame", game);
+		}
 	}
 }
