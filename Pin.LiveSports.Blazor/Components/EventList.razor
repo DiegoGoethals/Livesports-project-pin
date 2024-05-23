@@ -1,0 +1,42 @@
+﻿@if (Events != null && Events.Any())
+{
+	<ul>
+		@foreach (var matchEvent in Events)
+		{
+			<li>@GenerateEventString(matchEvent)</li>
+		}
+	</ul>
+}
+
+@code {
+	[Parameter]
+	public List<MatchEvent> Events { get; set; }
+
+	private string GenerateEventString(MatchEvent matchEvent)
+	{
+		Player player;
+		switch(matchEvent.EventType.Name)
+		{
+			case "Field Goal Attempt":
+				return $"{matchEvent.Team.Players.FirstOrDefault().Name} of {matchEvent.Team.Name} tried to score an easy 2-pointer after {matchEvent.Time} minutes but he missed";
+			case "Field Goal Made":
+				player = matchEvent.Team.Players.FirstOrDefault();
+				player.Points += 2;
+				return $"{player.Name} of {matchEvent.Team.Name} scored an easy 2-pointer after {matchEvent.Time} minutes";
+			case "Three Point Attempt":
+				return $"{matchEvent.Team.Players.FirstOrDefault().Name} of {matchEvent.Team.Name} tried to score a 3-pointer after {matchEvent.Time} minutes but he missed";
+			case "Three Point Made":
+				player = matchEvent.Team.Players.FirstOrDefault();
+				player.Points += 3;
+				return $"{player.Name} of {matchEvent.Team.Name} scored a 3-pointer after {matchEvent.Time} minutes";
+			case "Free Throw Attempt":
+				return $"{matchEvent.Team.Players.FirstOrDefault().Name} of {matchEvent.Team.Name} tried to score a free throw after {matchEvent.Time} minutes but he missed";
+				case "Free Throw Made":
+				player = matchEvent.Team.Players.FirstOrDefault();
+				player.Points += 1;
+				return $"{player.Name} of {matchEvent.Team.Name} scored a free throw after {matchEvent.Time} minutes";
+			default:
+				return $"{matchEvent.EventType.Name}, {matchEvent.Team.Name}, {matchEvent.Time}";
+		}
+	}
+}

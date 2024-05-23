@@ -39,12 +39,7 @@
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>
 
-<ul>
-    @foreach (var matchEvent in game.Events)
-	{
-		<li>@matchEvent.EventType.Name, @matchEvent.Team.Name, @matchEvent.Time</li>
-	}
-</ul>
+<EventList Events="game.Events.ToList()" />
 
 @code {
     [Parameter]
@@ -63,6 +58,7 @@
     private Team selectedTeam;
     private EventType selectedEventType;
     private int selectedMinute;
+    private List<Player> selectedPlayers = new List<Player>();
 
     protected override async Task OnInitializedAsync()
     {
@@ -118,7 +114,8 @@
             Time = selectedMinute,
             EventType = selectedEventType,
             Team = selectedTeam,
-            GameId = game.Id
+            GameId = game.Id,
+            Players = selectedPlayers
         });
     }
 }

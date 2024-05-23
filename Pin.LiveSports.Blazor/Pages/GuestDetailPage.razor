@@ -6,12 +6,7 @@
 
 <h3>@game.HomeTeam.Name - @game.AwayTeam.Name</h3>
 
-<ul>
-	@foreach (var matchEvent in game.Events)
-	{
-		<li>@matchEvent.EventType.Name, @matchEvent.Team.Name, @matchEvent.Time</li>
-	}
-</ul>
+<EventList Events="game.Events.ToList()"/>
 
 
 @code {

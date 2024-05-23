@@ -169,10 +169,10 @@ namespace Pin.LiveSports.Infrastructure.Data
             var types = new List<string>
             {
                 "Field Goal Attempt",
-                "Three Point Attempt",
-                "Free Throw Attempt",
                 "Field Goal Made",
+                "Three Point Attempt",
                 "Three Point Made",
+                "Free Throw Attempt",
                 "Free Throw Made",
                 "Foul",
                 "Substitution",
