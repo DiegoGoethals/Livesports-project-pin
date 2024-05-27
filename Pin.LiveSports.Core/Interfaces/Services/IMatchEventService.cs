@@ -10,5 +10,7 @@ namespace Pin.LiveSports.Core.Interfaces.Services
     public interface IMatchEventService
     {
         ICollection<EventType> GetEventTypes();
-    }
+        void HandleEvent(MatchEvent matchEvent);
+
+	}
 }

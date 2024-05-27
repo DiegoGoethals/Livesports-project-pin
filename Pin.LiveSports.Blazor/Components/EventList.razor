@@ -15,20 +15,37 @@
 	private string GenerateEventString(MatchEvent matchEvent)
 	{
 		Player player;
+		Player player2;
 		switch(matchEvent.EventType.Name)
 		{
 			case "Field Goal Attempt":
 				player = matchEvent.Players.FirstOrDefault();
 				return $"{player.Name} of {matchEvent.Team.Name} tried to score an easy 2-pointer after {matchEvent.Time} minutes but he missed";
 			case "Field Goal Made":
-				player = matchEvent.Players.FirstOrDefault();
-				return $"{player.Name} of {matchEvent.Team.Name} scored an easy 2-pointer after {matchEvent.Time} minutes";
+				if (matchEvent.Players.Count() == 2)
+				{
+					player = matchEvent.Players.FirstOrDefault();
+					player2 = matchEvent.Players.LastOrDefault();
+					return $"{player.Name} of {matchEvent.Team.Name} scored an easy 2-pointer assisted by {player2.Name} after {matchEvent.Time} minutes";
+				} else
+				{
+					player = matchEvent.Players.FirstOrDefault();
+					return $"{player.Name} of {matchEvent.Team.Name} scored an easy 2-pointer after {matchEvent.Time} minutes";
+				}
 			case "Three Point Attempt":
 				player = matchEvent.Players.FirstOrDefault();
 				return $"{player.Name} of {matchEvent.Team.Name} tried to score a 3-pointer after {matchEvent.Time} minutes but he missed";
 			case "Three Point Made":
-				player = matchEvent.Players.FirstOrDefault();
-				return $"{player.Name} of {matchEvent.Team.Name} scored a 3-pointer after {matchEvent.Time} minutes";
+				if (matchEvent.Players.Count() == 2)
+				{
+					player = matchEvent.Players.FirstOrDefault();
+					player2 = matchEvent.Players.LastOrDefault();
+					return $"{player.Name} of {matchEvent.Team.Name} scored a 3-pointer assisted by {player2.Name} after {matchEvent.Time} minutes";
+				} else
+				{
+					player = matchEvent.Players.FirstOrDefault();
+					return $"{player.Name} of {matchEvent.Team.Name} scored a 3-pointer after {matchEvent.Time} minutes";
+				}
 			case "Free Throw Attempt":
 				player = matchEvent.Players.FirstOrDefault();
 				return $"{player.Name} of {matchEvent.Team.Name} tried to score a free throw after {matchEvent.Time} minutes but he missed";
@@ -46,25 +63,17 @@
 				return $"{matchEvent.Players.ToList()[0].Name} of {matchEvent.Team.Name} was substituted for {matchEvent.Players.ToList()[1].Name} after {matchEvent.Time} minutes";
 			case "Timeout":
 				return $"{matchEvent.Team.Name} called a timeout after {matchEvent.Time} minutes";
-			case "Assist":
-				player = matchEvent.Players.FirstOrDefault();
-				player.Assists++;
-				return $"{player.Name} of {matchEvent.Team.Name} made an assist after {matchEvent.Time} minutes";
 			case "Rebound":
 				player = matchEvent.Players.FirstOrDefault();
-				player.Rebounds++;
 				return $"{player.Name} of {matchEvent.Team.Name} grabbed a rebound after {matchEvent.Time} minutes";
 			case "Steal":
 				player = matchEvent.Players.FirstOrDefault();
-				player.Steals++;
 				return $"{player.Name} of {matchEvent.Team.Name} made a steal after {matchEvent.Time} minutes";
 			case "Turnover":
 				player = matchEvent.Players.FirstOrDefault();
-				player.Turnovers++;
-				return $"{player.Name} of {matchEvent.Team.Name} made a turnover after {matchEvent.Time} minutes";
+				return $"{player.Name} of {matchEvent.Team.Name} committed a turnover after {matchEvent.Time} minutes";
 			case "Block":
 				player = matchEvent.Players.FirstOrDefault();
-				player.Blocks++;
 				return $"{player.Name} of {matchEvent.Team.Name} made a block after {matchEvent.Time} minutes";
 			case "Start":
 				return $"The game has begun";

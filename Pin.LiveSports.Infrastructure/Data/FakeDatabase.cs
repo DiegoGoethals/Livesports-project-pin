@@ -177,7 +177,6 @@ namespace Pin.LiveSports.Infrastructure.Data
                 "Foul",
                 "Substitution",
                 "Timeout",
-                "Assist",
                 "Rebound",
                 "Steal",
                 "Block",

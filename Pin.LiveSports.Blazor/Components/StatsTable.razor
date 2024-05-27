@@ -1,6 +1,4 @@
-﻿<h3>Stats of @selectedTeam.Name</h3>
-
-<table class="table table-bordered" style="border-color:black">
+﻿<table class="table table-bordered" style="border-color:black">
 	<thead>
 		<tr>
 			<th>Player</th>
@@ -54,6 +52,6 @@
 
 	private string CalculatePercentage(int numerator, int denominator)
 	{
-		return denominator != 0 ? $"{Math.Round(((double)numerator * 100) / denominator, 1)}" : "0";
+		return denominator != 0 ? $"{Math.Round(((double)numerator * 100) / denominator, 1)}%" : "0%";
 	}
 }
