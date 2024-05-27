@@ -1,30 +1,30 @@
 ﻿.gamecard {
     background-color: #ffffff;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: .7rem;
+    box-shadow: 0 .25rem .4rem rgba(0, 0, 0, 0.1);
     border: 1px solid #e0e0e0;
     cursor: pointer;
-    margin-bottom: 20px;
+    margin-bottom: 1.25rem;
     overflow: hidden;
     position: relative;
     transition: box-shadow 0.3s ease;
 }
 
 .gamecard:hover {
-    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 .5rem .75rem rgba(0, 0, 0, 0.1);
     border-color: #ccc;
 }
 
 .gamecard h4 {
-    font-size: 18px;
+    font-size: 1.2rem;
     margin: 0;
-    padding: 15px 20px;
+    padding: 1rem 1.25rem;
 }
 
 .gamecard p {
-    font-size: 16px;
+    font-size: 1rem;
     margin: 0;
-    padding: 15px 20px;
+    padding: 1rem 1.25rem;
     color: #666666;
 }
 

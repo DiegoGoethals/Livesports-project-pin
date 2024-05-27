@@ -22,6 +22,7 @@ namespace Pin.LiveSports.Core.Services
 		{
 			Player player;
 			Player player2;
+			Game game = _fakeDataBase.GetGame(matchEvent.GameId);
 			switch (matchEvent.EventType.Name)
 			{
 				case "Field Goal Attempt":
@@ -29,9 +30,9 @@ namespace Pin.LiveSports.Core.Services
 					player.FieldGoalsAttempted++;
 					break;
 				case "Field Goal Made":
+					player = matchEvent.Players.FirstOrDefault();
 					if (matchEvent.Players.Count == 2)
                     {
-                        player = matchEvent.Players.FirstOrDefault();
                         player2 = matchEvent.Players.LastOrDefault();
                         player.FieldGoalsAttempted++;
                         player.FieldGoalsMade++;
@@ -40,11 +41,18 @@ namespace Pin.LiveSports.Core.Services
                     }
                     else
                     {
-                        player = matchEvent.Players.FirstOrDefault();
                         player.FieldGoalsAttempted++;
                         player.FieldGoalsMade++;
                         player.Points += 2;
                     }
+					if (game.HomeTeam.Players.Contains(player))
+					{
+						game.HomeTeamScore += 2;
+					}
+					else
+					{
+						game.AwayTeamScore += 2;
+					}
 					break;
 				case "Three Point Attempt":
 					player = matchEvent.Players.FirstOrDefault();
@@ -52,9 +60,9 @@ namespace Pin.LiveSports.Core.Services
 					player.FieldGoalsAttempted++;
 					break;
 				case "Three Point Made":
+					player = matchEvent.Players.FirstOrDefault();
 					if (matchEvent.Players.Count == 2)
                     {
-                        player = matchEvent.Players.FirstOrDefault();
                         player2 = matchEvent.Players.LastOrDefault();
                         player.ThreePointFieldGoalsAttempted++;
                         player.ThreePointFieldGoalsMade++;
@@ -65,13 +73,20 @@ namespace Pin.LiveSports.Core.Services
                     }
                     else
                     {
-                        player = matchEvent.Players.FirstOrDefault();
                         player.ThreePointFieldGoalsAttempted++;
                         player.ThreePointFieldGoalsMade++;
                         player.FieldGoalsAttempted++;
                         player.FieldGoalsMade++;
                         player.Points += 3;
                     }
+					if (game.HomeTeam.Players.Contains(player))
+					{
+						game.HomeTeamScore += 3;
+					}
+					else
+					{
+						game.AwayTeamScore += 3;
+					}
 					break;
 				case "Free Throw Attempt":
 					player = matchEvent.Players.FirstOrDefault();
@@ -82,6 +97,14 @@ namespace Pin.LiveSports.Core.Services
 					player.FreeThrowsAttempted++;
 					player.FreeThrowsMade++;
 					player.Points += 1;
+					if (game.HomeTeam.Players.Contains(player))
+					{
+						game.HomeTeamScore += 1;
+					}
+					else
+					{
+						game.AwayTeamScore += 1;
+					}
 					break;
 				case "Foul":
 					player = matchEvent.Players.FirstOrDefault();

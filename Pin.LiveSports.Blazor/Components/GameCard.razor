@@ -1,7 +1,14 @@
 ﻿@inject NavigationManager NavigationManager
 
 <div @onclick="GoToPage" class="gamecard">
-	<h4>@game.HomeTeam.Name - @game.AwayTeam.Name</h4>
+	@if (game.IsStarted)
+	{
+		<h4>@game.HomeTeam.Name @game.HomeTeamScore - @game.AwayTeamScore @game.AwayTeam.Name</h4>
+	}
+	else
+	{
+		<h4>@game.HomeTeam.Name - @game.AwayTeam.Name</h4>
+	}
 	<p>@GetGameStatus()</p>
 </div>
 
