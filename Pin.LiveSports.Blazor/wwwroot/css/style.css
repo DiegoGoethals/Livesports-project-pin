@@ -104,3 +104,26 @@
 .my-modal-content .add-game-btn:hover {
     opacity: 0.8;
 }
+
+/* Login screen */
+.login-container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+    .login-container h3 {
+        margin-bottom: 20px;
+    }
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.btn {
+    margin-right: 10px;
+}

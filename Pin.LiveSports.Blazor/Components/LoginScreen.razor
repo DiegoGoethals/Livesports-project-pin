@@ -1,49 +1,50 @@
 ﻿@inject IUserService UserService
 @inject NavigationManager NavigationManager
 
-<h3>Please log in to use our app</h3>
+<div class="login-container">
+    <h3>Please log in to use our app</h3>
 
-<form @onsubmit="LoginAsReporter">
-	<div class="form-group">
-		<label for="username">Username</label>
-		<input type="text" class="form-control" id="username" @bind="username" placeholder="Enter username">
-	</div>
-	<div class="form-group">
-		<label for="password">Password</label>
-		<input type="password" class="form-control" id="password" @bind="password" placeholder="Password">
-	</div>
-	@if (!string.IsNullOrEmpty(message))
-	{
-		<div class="alert alert-danger" role="alert">
-			@message
-		</div>
-	}
-	<button type="button" class="btn btn-primary" @onclick="LoginAsGuest">View as guest</button>
-	<button type="submit" class="btn btn-primary">Login</button>
-</form>
+    <form @onsubmit="LoginAsReporter">
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" class="form-control" id="username" @bind="username" placeholder="Enter username">
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" @bind="password" placeholder="Password">
+        </div>
+        @if (!string.IsNullOrEmpty(message))
+        {
+            <div class="alert alert-danger" role="alert">
+                @message
+            </div>
+        }
+        <button type="button" class="btn btn-outline-primary" @onclick="LoginAsGuest">View as guest</button>
+        <button type="submit" class="btn btn-primary">Login</button>
+    </form>
+</div>
 
 @code {
-	private string username;
-	private string password;
+    private string username;
+    private string password;
+    private string message;
 
-	private string message;
+    private void LoginAsReporter()
+    {
+        if (username == "reporter" && password == "reporter")
+        {
+            UserService.Login("Reporter");
+            NavigationManager.NavigateTo("/games");
+        }
+        else
+        {
+            message = "Invalid username or password";
+        }
+    }
 
-	private void LoginAsReporter()
-	{
-		if (username == "reporter" && password == "reporter")
-		{
-			UserService.Login("Reporter");
-			NavigationManager.NavigateTo("/games");
-		}
-		else
-		{
-			message = "Invalid username or password";
-		}
-	}
-
-	private void LoginAsGuest()
-	{
-		UserService.Login("Guest");
-		NavigationManager.NavigateTo("/games");
-	}
+    private void LoginAsGuest()
+    {
+        UserService.Login("Guest");
+        NavigationManager.NavigateTo("/games");
+    }
 }
