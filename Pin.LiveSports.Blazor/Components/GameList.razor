@@ -2,48 +2,56 @@
 @inject IUserService UserService
 @inject NavigationManager Navigation
 
-<h3>Games</h3>
-@if (games != null)
-{
-	foreach (var game in games)
-	{
-		<GameCard game="game" userType="@userType" hubConnection="hubConnection" />
-	}
-}
+<div class="container">
+    <h3>Games</h3>
+    @if (games != null && games.Any())
+    {
+        @foreach (var game in games)
+        {
+            <div class="col-lg-4 col-md-6 mb-4">
+                <GameCard game="game" userType="@userType" hubConnection="hubConnection" />
+            </div>
+        }
+    }
+    else
+    {
+        <p>No games available.</p>
+    }
 
-@if (userType == "Reporter")
-{
-	<button @onclick="ShowPopUp" class="btn btn-primary">Create Game</button>
-}
+    @if (userType == "Reporter")
+    {
+        <button @onclick="ShowPopUp" class="btn btn-primary">Create Game</button>
+    }
 
-<AddGameModal @ref="popUp" hubConnection="hubConnection"/>
+    <AddGameModal @ref="popUp" hubConnection="hubConnection" />
+</div>
 
 @code {
-	ICollection<Game> games;
-	private string userType;
+    ICollection<Game> games;
+    private string userType;
 
-	private AddGameModal popUp;
+    private AddGameModal popUp;
 
-	private HubConnection hubConnection;
+    private HubConnection hubConnection;
 
-	protected override async Task OnInitializedAsync()
-	{
-		userType = UserService.UserType;
-		games = GameService.GetAll();
+    protected override async Task OnInitializedAsync()
+    {
+        userType = UserService.UserType;
+        games = GameService.GetAll();
 
-		hubConnection = new HubConnectionBuilder()
-			.WithUrl(Navigation.ToAbsoluteUri("/gameshub"))
-			.Build();
+        hubConnection = new HubConnectionBuilder()
+            .WithUrl(Navigation.ToAbsoluteUri("/gameshub"))
+            .Build();
 
-		hubConnection.On<Game>("UpdateGamesList", (game) =>
-		{
-			InvokeAsync(StateHasChanged);
-		});
-		await hubConnection.StartAsync();
-	}
+        hubConnection.On<Game>("UpdateGamesList", (game) =>
+        {
+            InvokeAsync(StateHasChanged);
+        });
+        await hubConnection.StartAsync();
+    }
 
-	private async Task ShowPopUp()
-	{
-		await popUp.Show();
-	}
+    private async Task ShowPopUp()
+    {
+        await popUp.Show();
+    }
 }
