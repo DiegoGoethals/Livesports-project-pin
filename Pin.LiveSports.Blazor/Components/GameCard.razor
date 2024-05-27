@@ -35,16 +35,15 @@
 		}
 	}
 
-	private string GetGameStatus()
+	private MarkupString GetGameStatus()
 	{
-
 		if (game.IsStarted)
 		{
-			return "Live";
+			return (MarkupString)$"<span class=\"live-status\">Live</span>";
 		}
 		else
 		{
-			return game.StartTime.ToString("HH:mm");
+			return (MarkupString)game.StartTime.ToString("HH:mm");
 		}
 	}
 }

@@ -1,16 +1,34 @@
 ﻿.gamecard {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     border: 1px solid #e0e0e0;
-    border-radius: .25rem;
-    padding: 1.25rem;
-    text-align: center;
-    background-color: #fff;
-    box-shadow: 0 .25rem .5rem rgba(0, 0, 0, 0.1);
     cursor: pointer;
-    margin-bottom: 1.25rem;
-    box-sizing: border-box;
+    margin-bottom: 20px;
+    overflow: hidden;
+    position: relative;
+    transition: box-shadow 0.3s ease;
 }
 
 .gamecard:hover {
-    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, 0.1);
-    border: .25rem solid #e0e0e0;
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+    border-color: #ccc;
+}
+
+.gamecard h4 {
+    font-size: 18px;
+    margin: 0;
+    padding: 15px 20px;
+}
+
+.gamecard p {
+    font-size: 16px;
+    margin: 0;
+    padding: 15px 20px;
+    color: #666666;
+}
+
+.live-status::before {
+    content: "● ";
+    color: red;
 }
