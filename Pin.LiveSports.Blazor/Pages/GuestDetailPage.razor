@@ -8,6 +8,15 @@
 
 <EventList Events="game.Events.ToList()"/>
 
+<div>
+	<button @onclick="() => SetSelectedTeam(game.HomeTeam)">@game.HomeTeam.Name</button>
+	<button @onclick="() => SetSelectedTeam(game.AwayTeam)">@game.AwayTeam.Name</button>
+</div>
+
+<p>Selected team: @selectedTeam.Name</p>
+
+<StatsTable selectedTeam="selectedTeam" />
+
 
 @code {
 	[Parameter]
@@ -15,11 +24,15 @@
 
 	private HubConnection hubConnection;
 
+	private Team selectedTeam;
+
 	Game game;
 
 	protected override async Task OnInitializedAsync()
 	{
 		game = GameService.GetById(int.Parse(id));
+
+		selectedTeam = game.HomeTeam;
 
 		hubConnection = new HubConnectionBuilder()
 			.WithUrl(Navigation.ToAbsoluteUri("/gameshub"))
@@ -30,5 +43,10 @@
 			InvokeAsync(StateHasChanged);
 		});
 		await hubConnection.StartAsync();
+	}
+
+	private void SetSelectedTeam(Team team)
+	{
+		selectedTeam = team;
 	}
 }

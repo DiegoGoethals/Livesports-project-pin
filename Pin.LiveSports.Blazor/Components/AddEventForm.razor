@@ -30,7 +30,7 @@
     <div class="form-group">
         <label for="player">Player</label>
         <select class="form-control" id="player" disabled="@(!teamSelected)" multiple @onchange="SetSelectedPlayers">
-            @foreach (var player in selectedTeamPlayers)
+            @foreach (var player in selectedTeamPlayers.Where(p => !p.IsFouledOut))
             {
                 <option value="@player.Name">@player.Name</option>
             }
@@ -128,13 +128,64 @@
             await hubConnection.SendAsync("UpdateGame", game);
         }
         var eventPlayers = new List<Player>(selectedPlayers);
-        GameService.AddEvent(new MatchEvent
+        var matchEvent = new MatchEvent
         {
             Time = selectedMinute,
             EventType = selectedEventType,
             Team = selectedTeam,
             GameId = game.Id,
             Players = eventPlayers
-        });
+        };
+        HandleEvent(matchEvent);
+        GameService.AddEvent(matchEvent);
     }
+
+    private void HandleEvent(MatchEvent matchEvent)
+	{
+		Player player;
+		switch (matchEvent.EventType.Name)
+		{
+			case "Field Goal Attempt":
+				player = matchEvent.Players.FirstOrDefault();
+				player.FieldGoalsAttempted++;
+				break;
+			case "Field Goal Made":
+				player = matchEvent.Players.FirstOrDefault();
+				player.FieldGoalsAttempted++;
+				player.FieldGoalsMade++;
+				player.Points += 2;
+				break;
+			case "Three Point Attempt":
+				player = matchEvent.Players.FirstOrDefault();
+				player.ThreePointFieldGoalsAttempted++;
+				player.FieldGoalsAttempted++;
+				break;
+			case "Three Point Made":
+				player = matchEvent.Players.FirstOrDefault();
+				player.ThreePointFieldGoalsAttempted++;
+				player.ThreePointFieldGoalsMade++;
+				player.FieldGoalsAttempted++;
+				player.FieldGoalsMade++;
+				player.Points += 3;
+				break;
+			case "Free Throw Attempt":
+				player = matchEvent.Players.FirstOrDefault();
+				player.FreeThrowsAttempted++;
+				break;
+			case "Free Throw Made":
+				player = matchEvent.Players.FirstOrDefault();
+				player.FreeThrowsAttempted++;
+				player.FreeThrowsMade++;
+				player.Points += 1;
+				break;
+			case "Foul":
+				player = matchEvent.Players.FirstOrDefault();
+				player.PersonalFouls++;
+				if (player.PersonalFouls == 6)
+				{
+					player.IsFouledOut = true;
+				}
+				break;
+		}
+	}
 }
