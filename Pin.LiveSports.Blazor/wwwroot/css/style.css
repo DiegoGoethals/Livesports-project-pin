@@ -1,6 +1,10 @@
-﻿/* Game cards */
+﻿/* Common Styles */
+.container-max-width {
+    max-width: 400px;
+    margin: 0 auto;
+}
+
 .gamecard {
-    background-color: #ffffff;
     border-radius: .7rem;
     box-shadow: 0 .25rem .4rem rgba(0, 0, 0, 0.1);
     border: 1px solid #e0e0e0;
@@ -11,30 +15,30 @@
     transition: box-shadow 0.3s ease;
 }
 
-.gamecard:hover {
-    box-shadow: 0 .5rem .75rem rgba(0, 0, 0, 0.1);
-    border-color: #ccc;
-}
+    .gamecard:hover {
+        box-shadow: 0 .5rem .75rem rgba(0, 0, 0, 0.1);
+        border-color: #ccc;
+    }
 
-.gamecard h4 {
-    font-size: 1.2rem;
-    margin: 0;
-    padding: 1rem 1.25rem;
-}
+    .gamecard h4 {
+        font-size: 1.2rem;
+        margin: 0;
+        padding: 1rem 1.25rem;
+    }
 
-.gamecard p {
-    font-size: 1rem;
-    margin: 0;
-    padding: 1rem 1.25rem;
-    color: #666666;
-}
+    .gamecard p {
+        font-size: 1rem;
+        margin: 0;
+        padding: 1rem 1.25rem;
+        color: #666666;
+    }
 
 .live-status::before {
     content: "● ";
     color: red;
 }
 
-/* Modal */
+/* Modal Styles */
 .my-modal {
     position: fixed;
     z-index: 1000;
@@ -66,18 +70,18 @@
     cursor: pointer;
 }
 
-.close:hover,
-.close:focus {
-    color: black;
-    text-decoration: none;
-}
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+    }
 
 /* Form Styles */
-.my-modal-content .form-group {
+.form-group {
     margin-bottom: 1.25rem;
 }
 
-.my-modal-content .form-control {
+.form-control {
     width: calc(100% - 1.25rem);
     padding: .7rem;
     font-size: 1rem;
@@ -85,10 +89,8 @@
     border-radius: .3rem;
 }
 
-.my-modal-content .cancel-btn,
-.my-modal-content .add-game-btn {
-    background-color: #f44336;
-    color: white;
+.cancel-btn,
+.add-game-btn {
     padding: .7rem 1.25rem;
     border: none;
     border-radius: .3rem;
@@ -96,34 +98,47 @@
     margin-right: .7rem;
 }
 
-.my-modal-content .add-game-btn {
+.add-game-btn {
     background-color: #4CAF50;
 }
 
-.my-modal-content .cancel-btn:hover,
-.my-modal-content .add-game-btn:hover {
-    opacity: 0.8;
+.cancel-btn {
+    background-color: #f44336;
 }
 
-/* Login screen */
+    .cancel-btn:hover,
+    .add-game-btn:hover {
+        opacity: 0.8;
+    }
+
+/* Login Screen Styles */
 .login-container {
-    max-width: 400px;
-    margin: 0 auto;
-    padding: 20px;
+    @extend .container-max-width;
+    padding: 1.25rem;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: .3rem;
     background-color: #fff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 .7rem rgba(0, 0, 0, 0.1);
 }
 
     .login-container h3 {
-        margin-bottom: 20px;
+        margin-bottom: 1.25rem;
     }
 
-.form-group {
-    margin-bottom: 20px;
+/* Event Form Styles */
+.event-form {
+    @extend .container-max-width;
+    padding: 1.25rem;
+    border: 1px solid #ccc;
+    border-radius: .3rem;
+    background-color: #f9f9f9;
+    box-shadow: 0 0 .7rem rgba(0, 0, 0, 0.1);
 }
 
+    .event-form h3 {
+        margin-bottom: 1.25rem;
+    }
+
 .btn {
-    margin-right: 10px;
+    margin-top: .7rem;
 }

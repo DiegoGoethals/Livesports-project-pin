@@ -1,5 +1,3 @@
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.ResponseCompression;
 using Pin.LiveSports.Blazor.Hubs;
 using Pin.LiveSports.Core.Interfaces;
