@@ -2,7 +2,7 @@
 
 <div @onclick="GoToPage" class="gamecard">
 	<h4>@game.HomeTeam.Name - @game.AwayTeam.Name</h4>
-	<p>@game.StartTime.ToString("HH:mm")</p>
+	<p>@GetGameStatus()</p>
 </div>
 
 @code {
@@ -11,6 +11,17 @@
 
 	[Parameter]
 	public string userType { get; set; }
+
+	[Parameter]
+	public HubConnection hubConnection { get; set; }
+
+	protected override void OnInitialized()
+	{
+		hubConnection.On<Game>("UpdateGame", (game) =>
+		{
+			InvokeAsync(StateHasChanged);
+		});
+	}
 
 	private void GoToPage()
 	{
@@ -21,6 +32,19 @@
 		else
 		{
 			NavigationManager.NavigateTo($"/games/guest/{game.Id}");
+		}
+	}
+
+	private string GetGameStatus()
+	{
+
+		if (game.IsStarted)
+		{
+			return "Live";
+		}
+		else
+		{
+			return game.StartTime.ToString("HH:mm");
 		}
 	}
 }

@@ -5,39 +5,46 @@
 
 <h3>Add Event to the game</h3>
 
-<form @onsubmit="AddEvent">
-    <div class="form-group">
-        <label for="eventType">Event Type</label>
-        <select class="form-control" id="eventType" @onchange="setSelectedEventType">
-            @foreach (var eventType in eventTypes)
-            {
-                <option value="@eventType.Name">@eventType.Name</option>
-            }
-        </select>
-    </div>
-    <div class="form-group">
-        <label for="minute">Minute</label>
-        <input type="number" class="form-control" id="minute" placeholder="Enter minute" @onchange="setMinute">
-    </div>
-    <div class="form-group">
-        <label for="team">Team</label>
-        <select class="form-control" id="team" @onchange="OnTeamSelected">
-            <option value="">Select Team</option>
-            <option value="@homeTeam.Name">@homeTeam.Name</option>
-            <option value="@awayTeam.Name">@awayTeam.Name</option>
-        </select>
-    </div>
-    <div class="form-group">
-        <label for="player">Player</label>
-        <select class="form-control" id="player" disabled="@(!teamSelected)" multiple @onchange="SetSelectedPlayers">
-            @foreach (var player in selectedTeamPlayers.Where(p => !p.IsFouledOut))
-            {
-                <option value="@player.Name">@player.Name</option>
-            }
-        </select>
-    </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
-</form>
+@if (game.IsStarted)
+{
+    <form @onsubmit="AddEvent">
+        <div class="form-group">
+            <label for="eventType">Event Type</label>
+            <select class="form-control" id="eventType" @onchange="setSelectedEventType">
+                @foreach (var eventType in eventTypes)
+                {
+                    <option value="@eventType.Name">@eventType.Name</option>
+                }
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="minute">Minute</label>
+            <input type="number" class="form-control" id="minute" placeholder="Enter minute" @onchange="setMinute">
+        </div>
+        <div class="form-group">
+            <label for="team">Team</label>
+            <select class="form-control" id="team" @onchange="OnTeamSelected">
+                <option value="">Select Team</option>
+                <option value="@homeTeam.Name">@homeTeam.Name</option>
+                <option value="@awayTeam.Name">@awayTeam.Name</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="player">Player</label>
+            <select class="form-control" id="player" disabled="@(!teamSelected)" multiple @onchange="SetSelectedPlayers">
+                @foreach (var player in selectedTeamPlayers.Where(p => !p.IsFouledOut))
+                {
+                    <option value="@player.Name">@player.Name</option>
+                }
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+}
+else
+{
+	<button class="btn btn-primary" @onclick="StartGame">Start game</button>
+}
 
 <EventList Events="game.Events.ToList()" />
 
@@ -72,6 +79,23 @@
             .Build();
         await hubConnection.StartAsync();
     }
+
+    private async Task StartGame()
+	{
+        if (hubConnection is not null)
+        {
+            await hubConnection.SendAsync("UpdateGame", game);
+        }
+		game.IsStarted = true;
+        GameService.AddEvent(new MatchEvent
+		{
+			Time = 0,
+			EventType = eventTypes.FirstOrDefault(et => et.Name == "Start"),
+			Team = homeTeam,
+			GameId = game.Id,
+			Players = new List<Player>()
+		});
+	}
 
     private void OnTeamSelected(ChangeEventArgs e)
     {
