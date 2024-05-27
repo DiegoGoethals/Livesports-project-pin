@@ -1,7 +1,5 @@
 ﻿using Pin.LiveSports.Core.Entities;
 using Pin.LiveSports.Core.Interfaces;
-using static System.Formats.Asn1.AsnWriter;
-using System.IO;
 
 namespace Pin.LiveSports.Infrastructure.Data
 {
