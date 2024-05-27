@@ -142,3 +142,63 @@
 .btn {
     margin-top: .7rem;
 }
+
+/* Table */
+.table-custom {
+    width: 100%;
+    border: 2px solid black;
+    border-collapse: collapse;
+}
+
+    .table-custom th,
+    .table-custom td {
+        border: 1px solid black;
+        padding: .5rem;
+        text-align: center;
+    }
+
+    .table-custom th {
+        background-color: #f2f2f2;
+    }
+
+    .table-custom tbody tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+
+    .table-custom tbody tr:hover {
+        background-color: #e2e2e2;
+    }
+
+/* Guest Details Page Styles */
+.page-container {
+    max-width: 800px;
+    padding: 1.25rem;
+}
+
+/* Header Styles */
+.header {
+    text-align: center;
+    margin-bottom: 1.25rem;
+}
+
+/* Team Buttons Styles */
+.team-buttons {
+    text-align: center;
+    margin-bottom: 1.25rem;
+}
+
+    .team-buttons button {
+        margin-right: .7rem;
+        padding: .5rem 1rem;
+        font-size: 1rem;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: .25rem;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+        .team-buttons button:hover {
+            background-color: #0056b3;
+        }

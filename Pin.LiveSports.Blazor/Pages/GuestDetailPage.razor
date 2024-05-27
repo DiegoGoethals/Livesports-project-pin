@@ -4,16 +4,24 @@
 @inject IMatchEventService MatchEventService
 @inject NavigationManager Navigation
 
-<h3>@game.HomeTeam.Name - @game.AwayTeam.Name</h3>
+<div class="page-container">
+	<!-- Header -->
+	<div class="header">
+		<h3>@game.HomeTeam.Name - @game.AwayTeam.Name</h3>
+	</div>
 
-<EventList Events="game.Events.ToList()"/>
+	<!-- Event List -->
+	<EventList Events="game.Events.ToList()" />
 
-<div>
-	<button @onclick="() => SetSelectedTeam(game.HomeTeam)">@game.HomeTeam.Name</button>
-	<button @onclick="() => SetSelectedTeam(game.AwayTeam)">@game.AwayTeam.Name</button>
+	<!-- Team Buttons -->
+	<div class="team-buttons">
+		<button @onclick="() => SetSelectedTeam(game.HomeTeam)">@game.HomeTeam.Name</button>
+		<button @onclick="() => SetSelectedTeam(game.AwayTeam)">@game.AwayTeam.Name</button>
+	</div>
+
+	<!-- Stats Table -->
+	<StatsTable selectedTeam="selectedTeam" />
 </div>
-
-<StatsTable selectedTeam="selectedTeam" />
 
 
 @code {
