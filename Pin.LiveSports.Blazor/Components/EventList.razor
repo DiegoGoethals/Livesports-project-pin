@@ -57,75 +57,77 @@
 		}
 	}
 
-	private string GenerateEventString(MatchEvent matchEvent)
-	{
-		Player player;
-		Player player2;
-		switch(matchEvent.EventType.Name)
-		{
-			case "Field Goal Attempt":
-				player = matchEvent.Players.FirstOrDefault();
-				return $"{player.Name} of {matchEvent.Team.Name} tried to score an easy 2-pointer but he missed";
-			case "Field Goal Made":
-				if (matchEvent.Players.Count() == 2)
-				{
-					player = matchEvent.Players.FirstOrDefault();
-					player2 = matchEvent.Players.LastOrDefault();
-					return $"{player.Name} of {matchEvent.Team.Name} scored an easy 2-pointer assisted by {player2.Name}";
-				} else
-				{
-					player = matchEvent.Players.FirstOrDefault();
-					return $"{player.Name} of {matchEvent.Team.Name} scored an easy 2-pointer";
-				}
-			case "Three Point Attempt":
-				player = matchEvent.Players.FirstOrDefault();
-				return $"{player.Name} of {matchEvent.Team.Name} tried to score a 3-pointer but he missed";
-			case "Three Point Made":
-				if (matchEvent.Players.Count() == 2)
-				{
-					player = matchEvent.Players.FirstOrDefault();
-					player2 = matchEvent.Players.LastOrDefault();
-					return $"{player.Name} of {matchEvent.Team.Name} scored a 3-pointer assisted by {player2.Name}";
-				} else
-				{
-					player = matchEvent.Players.FirstOrDefault();
-					return $"{player.Name} of {matchEvent.Team.Name} scored a 3-pointer";
-				}
-			case "Free Throw Attempt":
-				player = matchEvent.Players.FirstOrDefault();
-				return $"{player.Name} of {matchEvent.Team.Name} tried to score a free throw but he missed";
-			case "Free Throw Made":
-				player = matchEvent.Players.FirstOrDefault();
-				return $"{player.Name} of {matchEvent.Team.Name} scored a free throw";
-			case "Foul":
-				player = matchEvent.Players.FirstOrDefault();
-				if (player.PersonalFouls == 6)
-				{
-					return $"{player.Name} of {matchEvent.Team.Name} committed his 6th fould and has fouled out";
-				}
-				return $"{player.Name} of {matchEvent.Team.Name} committed a foul";
-			case "Substitution":
-				return $"{matchEvent.Players.ToList()[0].Name} of {matchEvent.Team.Name} was substituted for {matchEvent.Players.ToList()[1].Name}";
-			case "Timeout":
-				return $"{matchEvent.Team.Name} called a timeout";
-			case "Rebound":
-				player = matchEvent.Players.FirstOrDefault();
-				return $"{player.Name} of {matchEvent.Team.Name} grabbed a rebound";
-			case "Steal":
-				player = matchEvent.Players.FirstOrDefault();
-				return $"{player.Name} of {matchEvent.Team.Name} made a steal";
-			case "Turnover":
-				player = matchEvent.Players.FirstOrDefault();
-				return $"{player.Name} of {matchEvent.Team.Name} committed a turnover";
-			case "Block":
-				player = matchEvent.Players.FirstOrDefault();
-				return $"{player.Name} of {matchEvent.Team.Name} made a block";
-			case "Start":
-				return $"The game has begun";
-			case "End":
-				return $"The game has ended";
-			default:
-				return $"🔴 {matchEvent.EventType.Name}, {matchEvent.Team.Name}, {matchEvent.Time}";
-		}
-	}
+    private MarkupString GenerateEventString(MatchEvent matchEvent)
+    {
+        Player player;
+        Player player2;
+        switch (matchEvent.EventType.Name)
+        {
+            case "Field Goal Attempt":
+                player = matchEvent.Players.FirstOrDefault();
+                return new MarkupString($"<span class='player-name'>{player.Name}</span> of <span class='team-name'>{matchEvent.Team.Name}</span> tried to score an easy 2-pointer but he missed");
+            case "Field Goal Made":
+                if (matchEvent.Players.Count() == 2)
+                {
+                    player = matchEvent.Players.FirstOrDefault();
+                    player2 = matchEvent.Players.LastOrDefault();
+                    return new MarkupString($"<span class='player-name'>{player.Name}</span> of <span class='team-name'>{matchEvent.Team.Name}</span> scored an easy 2-pointer assisted by <span class='player-name'>{player2.Name}</span>");
+                }
+                else
+                {
+                    player = matchEvent.Players.FirstOrDefault();
+                    return new MarkupString($"<span class='player-name'>{player.Name}</span> of <span class='team-name'>{matchEvent.Team.Name}</span> scored an easy 2-pointer");
+                }
+            case "Three Point Attempt":
+                player = matchEvent.Players.FirstOrDefault();
+                return new MarkupString($"<span class='player-name'>{player.Name}</span> of <span class='team-name'>{matchEvent.Team.Name}</span> tried to score a 3-pointer but he missed");
+            case "Three Point Made":
+                if (matchEvent.Players.Count() == 2)
+                {
+                    player = matchEvent.Players.FirstOrDefault();
+                    player2 = matchEvent.Players.LastOrDefault();
+                    return new MarkupString($"<span class='player-name'>{player.Name}</span> of <span class='team-name'>{matchEvent.Team.Name}</span> scored a 3-pointer assisted by <span class='player-name'>{player2.Name}</span>");
+                }
+                else
+                {
+                    player = matchEvent.Players.FirstOrDefault();
+                    return new MarkupString($"<span class='player-name'>{player.Name}</span> of <span class='team-name'>{matchEvent.Team.Name}</span> scored a 3-pointer");
+                }
+            case "Free Throw Attempt":
+                player = matchEvent.Players.FirstOrDefault();
+                return new MarkupString($"<span class='player-name'>{player.Name}</span> of <span class='team-name'>{matchEvent.Team.Name}</span> tried to score a free throw but he missed");
+            case "Free Throw Made":
+                player = matchEvent.Players.FirstOrDefault();
+                return new MarkupString($"<span class='player-name'>{player.Name}</span> of <span class='team-name'>{matchEvent.Team.Name}</span> scored a free throw");
+            case "Foul":
+                player = matchEvent.Players.FirstOrDefault();
+                if (player.PersonalFouls == 6)
+                {
+                    return new MarkupString($"<span class='player-name'>{player.Name}</span> of <span class='team-name'>{matchEvent.Team.Name}</span> committed his 6th fould and has fouled out");
+                }
+                return new MarkupString($"<span class='player-name'>{player.Name}</span> of <span class='team-name'>{matchEvent.Team.Name}</span> committed a foul");
+            case "Substitution":
+                return new MarkupString($"<span class='team-name'>{matchEvent.Players.ToList()[0].Name}</span> of <span class='team-name'>{matchEvent.Team.Name}</span> was substituted for <span class='team-name'>{matchEvent.Players.ToList()[1].Name}</span>");
+            case "Timeout":
+                return new MarkupString($"<span class='team-name'>{matchEvent.Team.Name}</span> called a timeout");
+            case "Rebound":
+                player = matchEvent.Players.FirstOrDefault();
+                return new MarkupString($"<span class='player-name'>{player.Name}</span> of <span class='team-name'>{matchEvent.Team.Name}</span> grabbed a rebound");
+            case "Steal":
+                player = matchEvent.Players.FirstOrDefault();
+                return new MarkupString($"<span class='player-name'>{player.Name}</span> of <span class='team-name'>{matchEvent.Team.Name}</span> made a steal");
+            case "Turnover":
+                player = matchEvent.Players.FirstOrDefault();
+                return new MarkupString($"<span class='player-name'>{player.Name}</span> of <span class='team-name'>{matchEvent.Team.Name}</span> committed a turnover");
+            case "Block":
+                player = matchEvent.Players.FirstOrDefault();
+                return new MarkupString($"<span class='player-name'>{player.Name}</span> of <span class='team-name'>{matchEvent.Team.Name}</span> made a block");
+            case "Start":
+                return new MarkupString("The game has begun");
+            case "End":
+                return new MarkupString("The game has ended");
+            default:
+                return new MarkupString($"<span class='event-unknown'>🔴 {matchEvent.EventType.Name}, {matchEvent.Team.Name}, {matchEvent.Time}</span>");
+        }
+    }
 }

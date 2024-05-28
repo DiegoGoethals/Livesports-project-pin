@@ -1,4 +1,22 @@
-﻿/* Common Styles */
+﻿/* General styling */
+html {
+    font-size: 16px;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa;
+    color: #333;
+    line-height: 1.6;
+}
+
+body {
+    padding: 1rem;
+}
+
+/* Common Styles */
 .container-max-width {
     max-width: 400px;
     margin: 0 auto;
@@ -240,4 +258,14 @@ ul {
     font-weight: bold;
     color: #333;
     margin-right: 0.75rem;
+}
+
+.player-name {
+    font-weight: bold;
+    color: #007bff;
+}
+
+.team-name {
+    font-weight: bold;
+    color: #28a745;
 }
