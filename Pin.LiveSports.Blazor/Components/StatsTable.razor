@@ -1,57 +1,92 @@
-﻿<table class="table-custom">
-	<thead>
-		<tr>
-			<th>Player</th>
-			<th>Points</th>
-			<th>Assists</th>
-			<th>Rebounds</th>
-			<th>Steals</th>
-			<th>Blocks</th>
-			<th>Turnovers</th>
-			<th>Fouls</th>
-			<th>FGM</th>
-			<th>FGA</th>
-			<th>FG%</th>
-			<th>3PM</th>
-			<th>3PA</th>
-			<th>3P%</th>
-			<th>FTM</th>
-			<th>FTA</th>
-			<th>FT%</th>
-		</tr>
-	</thead>
-	<tbody>
-		@foreach (var player in selectedTeam.Players)
-		{
+﻿@inject IJSRuntime JSRuntime
+
+<dialog @ref="dialog">
+	<span class="close" @onclick="CloseDialog">&times;</span>
+	<div class="team-buttons">
+		<button @onclick="() => SetSelectedTeam(game.HomeTeam)">@game.HomeTeam.Name</button>
+		<button @onclick="() => SetSelectedTeam(game.AwayTeam)">@game.AwayTeam.Name</button>
+	</div>
+
+	<table class="table-custom">
+		<thead>
 			<tr>
-				<td>@player.Name</td>
-				<td>@player.Points</td>
-				<td>@player.Assists</td>
-				<td>@player.Rebounds</td>
-				<td>@player.Steals</td>
-				<td>@player.Blocks</td>
-				<td>@player.Turnovers</td>
-				<td>@player.PersonalFouls</td>
-				<td>@player.FieldGoalsMade</td>
-				<td>@player.FieldGoalsAttempted</td>
-				<td>@CalculatePercentage(player.FieldGoalsMade, player.FieldGoalsAttempted)</td>
-				<td>@player.ThreePointFieldGoalsMade</td>
-				<td>@player.ThreePointFieldGoalsAttempted</td>
-				<td>@CalculatePercentage(player.ThreePointFieldGoalsMade, player.ThreePointFieldGoalsAttempted)</td>
-				<td>@player.FreeThrowsMade</td>
-				<td>@player.FreeThrowsAttempted</td>
-				<td>@CalculatePercentage(player.FreeThrowsMade, player.FreeThrowsAttempted)</td>
+				<th>Player</th>
+				<th>Points</th>
+				<th>Assists</th>
+				<th>Rebounds</th>
+				<th>Steals</th>
+				<th>Blocks</th>
+				<th>Turnovers</th>
+				<th>Fouls</th>
+				<th>FGM</th>
+				<th>FGA</th>
+				<th>FG%</th>
+				<th>3PM</th>
+				<th>3PA</th>
+				<th>3P%</th>
+				<th>FTM</th>
+				<th>FTA</th>
+				<th>FT%</th>
 			</tr>
-		}
-	</tbody>
-</table>
+		</thead>
+		<tbody>
+			@foreach (var player in selectedTeam.Players)
+			{
+				<tr>
+					<td class="player-name">@player.Name</td>
+					<td>@player.Points</td>
+					<td>@player.Assists</td>
+					<td>@player.Rebounds</td>
+					<td>@player.Steals</td>
+					<td>@player.Blocks</td>
+					<td>@player.Turnovers</td>
+					<td>@player.PersonalFouls</td>
+					<td>@player.FieldGoalsMade</td>
+					<td>@player.FieldGoalsAttempted</td>
+					<td>@CalculatePercentage(player.FieldGoalsMade, player.FieldGoalsAttempted)</td>
+					<td>@player.ThreePointFieldGoalsMade</td>
+					<td>@player.ThreePointFieldGoalsAttempted</td>
+					<td>@CalculatePercentage(player.ThreePointFieldGoalsMade, player.ThreePointFieldGoalsAttempted)</td>
+					<td>@player.FreeThrowsMade</td>
+					<td>@player.FreeThrowsAttempted</td>
+					<td>@CalculatePercentage(player.FreeThrowsMade, player.FreeThrowsAttempted)</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+</dialog>
+
 
 @code {
 	[Parameter]
-	public Team selectedTeam { get; set; }
+	public Game game { get; set; }
+
+	private Team selectedTeam;
+
+	private ElementReference dialog;
+
+	protected override void OnInitialized()
+	{
+		selectedTeam = game.HomeTeam;
+	}
 
 	private string CalculatePercentage(int numerator, int denominator)
 	{
 		return denominator != 0 ? $"{Math.Round(((double)numerator * 100) / denominator, 1)}%" : "0%";
+	}
+
+	public async Task Show()
+	{
+		await JSRuntime.InvokeVoidAsync("openDialog", dialog);
+	}
+
+	private async Task CloseDialog()
+	{
+		await JSRuntime.InvokeVoidAsync("closeDialog", dialog);
+	}
+
+	private void SetSelectedTeam(Team team)
+	{
+		selectedTeam = team;
 	}
 }

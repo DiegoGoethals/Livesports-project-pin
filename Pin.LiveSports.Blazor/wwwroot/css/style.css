@@ -169,6 +169,13 @@
         background-color: #e2e2e2;
     }
 
+.player-name {
+    min-width: 300px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
 /* Guest Details Page Styles */
 .page-container {
     max-width: 800px;

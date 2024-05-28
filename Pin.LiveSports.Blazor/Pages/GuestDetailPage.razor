@@ -5,22 +5,15 @@
 @inject NavigationManager Navigation
 
 <div class="page-container">
-	<!-- Header -->
 	<div class="header">
 		<h3>@game.HomeTeam.Name - @game.AwayTeam.Name</h3>
 	</div>
 
-	<!-- Event List -->
 	<EventList Events="game.Events.ToList()" />
 
-	<!-- Team Buttons -->
-	<div class="team-buttons">
-		<button @onclick="() => SetSelectedTeam(game.HomeTeam)">@game.HomeTeam.Name</button>
-		<button @onclick="() => SetSelectedTeam(game.AwayTeam)">@game.AwayTeam.Name</button>
-	</div>
+	<button class="btn btn-primary" @onclick="OpenStats">See stats</button>
 
-	<!-- Stats Table -->
-	<StatsTable selectedTeam="selectedTeam" />
+	<StatsTable @ref="stats" game="game" />
 </div>
 
 
@@ -30,15 +23,13 @@
 
 	private HubConnection hubConnection;
 
-	private Team selectedTeam;
-
 	Game game;
+
+	private StatsTable stats;
 
 	protected override async Task OnInitializedAsync()
 	{
 		game = GameService.GetById(int.Parse(id));
-
-		selectedTeam = game.HomeTeam;
 
 		hubConnection = new HubConnectionBuilder()
 			.WithUrl(Navigation.ToAbsoluteUri("/gameshub"))
@@ -51,8 +42,8 @@
 		await hubConnection.StartAsync();
 	}
 
-	private void SetSelectedTeam(Team team)
+	private	async Task OpenStats()
 	{
-		selectedTeam = team;
+		await stats.Show();
 	}
 }
