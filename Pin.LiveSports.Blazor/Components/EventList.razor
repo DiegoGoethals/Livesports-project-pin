@@ -25,67 +25,67 @@
 		{
 			case "Field Goal Attempt":
 				player = matchEvent.Players.FirstOrDefault();
-				return $"{player.Name} of {matchEvent.Team.Name} tried to score an easy 2-pointer after {matchEvent.Time} minutes but he missed";
+				return $"🏀 {player.Name} of {matchEvent.Team.Name} tried to score an easy 2-pointer after {matchEvent.Time} minutes but he missed";
 			case "Field Goal Made":
 				if (matchEvent.Players.Count() == 2)
 				{
 					player = matchEvent.Players.FirstOrDefault();
 					player2 = matchEvent.Players.LastOrDefault();
-					return $"{player.Name} of {matchEvent.Team.Name} scored an easy 2-pointer assisted by {player2.Name} after {matchEvent.Time} minutes";
+					return $"🏀🔥 {player.Name} of {matchEvent.Team.Name} scored an easy 2-pointer assisted by {player2.Name} after {matchEvent.Time} minutes";
 				} else
 				{
 					player = matchEvent.Players.FirstOrDefault();
-					return $"{player.Name} of {matchEvent.Team.Name} scored an easy 2-pointer after {matchEvent.Time} minutes";
+					return $"🏀🔥 {player.Name} of {matchEvent.Team.Name} scored an easy 2-pointer after {matchEvent.Time} minutes";
 				}
 			case "Three Point Attempt":
 				player = matchEvent.Players.FirstOrDefault();
-				return $"{player.Name} of {matchEvent.Team.Name} tried to score a 3-pointer after {matchEvent.Time} minutes but he missed";
+				return $"🏀🎯 {player.Name} of {matchEvent.Team.Name} tried to score a 3-pointer after {matchEvent.Time} minutes but he missed";
 			case "Three Point Made":
 				if (matchEvent.Players.Count() == 2)
 				{
 					player = matchEvent.Players.FirstOrDefault();
 					player2 = matchEvent.Players.LastOrDefault();
-					return $"{player.Name} of {matchEvent.Team.Name} scored a 3-pointer assisted by {player2.Name} after {matchEvent.Time} minutes";
+					return $"🏀🎯🔥 {player.Name} of {matchEvent.Team.Name} scored a 3-pointer assisted by {player2.Name} after {matchEvent.Time} minutes";
 				} else
 				{
 					player = matchEvent.Players.FirstOrDefault();
-					return $"{player.Name} of {matchEvent.Team.Name} scored a 3-pointer after {matchEvent.Time} minutes";
+					return $"🏀🎯🔥 {player.Name} of {matchEvent.Team.Name} scored a 3-pointer after {matchEvent.Time} minutes";
 				}
 			case "Free Throw Attempt":
 				player = matchEvent.Players.FirstOrDefault();
-				return $"{player.Name} of {matchEvent.Team.Name} tried to score a free throw after {matchEvent.Time} minutes but he missed";
+				return $"🏀➡️ {player.Name} of {matchEvent.Team.Name} tried to score a free throw after {matchEvent.Time} minutes but he missed";
 			case "Free Throw Made":
 				player = matchEvent.Players.FirstOrDefault();
-				return $"{player.Name} of {matchEvent.Team.Name} scored a free throw after {matchEvent.Time} minutes";
+				return $"🏀🎯 {player.Name} of {matchEvent.Team.Name} scored a free throw after {matchEvent.Time} minutes";
 			case "Foul":
 				player = matchEvent.Players.FirstOrDefault();
 				if (player.PersonalFouls == 6)
 				{
-					return $"{player.Name} of {matchEvent.Team.Name} committed his 6th fould after {matchEvent.Time} minutes and has fouled out";
+					return $"❌ {player.Name} of {matchEvent.Team.Name} committed his 6th fould after {matchEvent.Time} minutes and has fouled out";
 				}
-				return $"{player.Name} of {matchEvent.Team.Name} committed a foul after {matchEvent.Time} minutes";
+				return $"❌ {player.Name} of {matchEvent.Team.Name} committed a foul after {matchEvent.Time} minutes";
 			case "Substitution":
-				return $"{matchEvent.Players.ToList()[0].Name} of {matchEvent.Team.Name} was substituted for {matchEvent.Players.ToList()[1].Name} after {matchEvent.Time} minutes";
+				return $"🔁 {matchEvent.Players.ToList()[0].Name} of {matchEvent.Team.Name} was substituted for {matchEvent.Players.ToList()[1].Name} after {matchEvent.Time} minutes";
 			case "Timeout":
-				return $"{matchEvent.Team.Name} called a timeout after {matchEvent.Time} minutes";
+				return $"⏱️ {matchEvent.Team.Name} called a timeout after {matchEvent.Time} minutes";
 			case "Rebound":
 				player = matchEvent.Players.FirstOrDefault();
-				return $"{player.Name} of {matchEvent.Team.Name} grabbed a rebound after {matchEvent.Time} minutes";
+				return $"🏀↕️ {player.Name} of {matchEvent.Team.Name} grabbed a rebound after {matchEvent.Time} minutes";
 			case "Steal":
 				player = matchEvent.Players.FirstOrDefault();
-				return $"{player.Name} of {matchEvent.Team.Name} made a steal after {matchEvent.Time} minutes";
+				return $"🏀🔒 {player.Name} of {matchEvent.Team.Name} made a steal after {matchEvent.Time} minutes";
 			case "Turnover":
 				player = matchEvent.Players.FirstOrDefault();
-				return $"{player.Name} of {matchEvent.Team.Name} committed a turnover after {matchEvent.Time} minutes";
+				return $"🔄 {player.Name} of {matchEvent.Team.Name} committed a turnover after {matchEvent.Time} minutes";
 			case "Block":
 				player = matchEvent.Players.FirstOrDefault();
-				return $"{player.Name} of {matchEvent.Team.Name} made a block after {matchEvent.Time} minutes";
+				return $"🏀🚫 {player.Name} of {matchEvent.Team.Name} made a block after {matchEvent.Time} minutes";
 			case "Start":
-				return $"The game has begun";
+				return $"🟢 The game has begun";
 			case "End":
-				return $"The game has ended";
+				return $"🔴 The game has ended";
 			default:
-				return $"{matchEvent.EventType.Name}, {matchEvent.Team.Name}, {matchEvent.Time}";
+				return $"🔴 {matchEvent.EventType.Name}, {matchEvent.Team.Name}, {matchEvent.Time}";
 		}
 	}
 }
