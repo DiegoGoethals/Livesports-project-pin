@@ -13,6 +13,7 @@ class Program
 public class ExampleService(IFakeDataBase _fakeDataBase) // On creating services it's usefull to use the primary constructor for easier dependency injection
 {
 	// Normally you have fields here which take up lines of code again but by using the primary constructor you can remove them and have easier to read code
+	// In basically every school project this would have been usefull because databases and repos and services, which aren't in this project
 	public Game GetGame(int id)
 	{
 		return _fakeDataBase.GetGame(id);
