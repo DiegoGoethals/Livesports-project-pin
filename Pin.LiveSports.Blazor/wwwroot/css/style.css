@@ -209,3 +209,35 @@
         .team-buttons button:hover {
             background-color: #0056b3;
         }
+
+
+/* Event Notification Styles */
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.event-notification {
+    margin-bottom: 0.5rem;
+    padding: 0.75rem;
+    background-color: #f0f0f0;
+    border-radius: 0.25rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.event-notification-icon {
+    font-size: 1.25rem;
+    margin-right: 0.5rem;
+}
+
+.event-notification-content {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.event-notification-time {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #333;
+    margin-right: 0.75rem;
+}
