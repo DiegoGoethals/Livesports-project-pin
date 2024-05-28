@@ -89,6 +89,24 @@
             await hubConnection.SendAsync("UpdateGame", game);
         }
 		game.IsStarted = true;
+        var allPlayersInGame = new List<Player>(homeTeam.Players.Concat(awayTeam.Players));
+        foreach (var player in allPlayersInGame)
+		{
+            player.Points = 0;
+            player.Assists = 0;
+            player.Rebounds = 0;
+            player.PersonalFouls = 0;
+            player.Steals = 0;
+            player.Blocks = 0;
+            player.FieldGoalsMade = 0;
+            player.FieldGoalsAttempted = 0;
+            player.ThreePointFieldGoalsMade = 0;
+            player.ThreePointFieldGoalsAttempted = 0;
+            player.FreeThrowsMade = 0;
+            player.FreeThrowsAttempted = 0;
+            player.Turnovers = 0;
+			player.IsFouledOut = false;
+		}
         GameService.AddEvent(new MatchEvent
 		{
 			Time = 0,

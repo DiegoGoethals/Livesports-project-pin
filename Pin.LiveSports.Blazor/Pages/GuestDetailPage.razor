@@ -6,14 +6,21 @@
 
 <div class="page-container">
 	<div class="header">
-		<h3>@game.HomeTeam.Name - @game.AwayTeam.Name</h3>
+		<h3>@game.HomeTeam.Name @game.HomeTeamScore - @game.AwayTeamScore @game.AwayTeam.Name</h3>
 	</div>
 
-	<EventList Events="game.Events.ToList()" />
-
-	<button class="btn btn-primary" @onclick="OpenStats">See stats</button>
-
 	<StatsTable @ref="stats" game="game" />
+
+	@if (game.IsStarted)
+	{
+		<button class="btn btn-primary" @onclick="OpenStats">See stats</button>
+	}
+	else
+	{
+		<p>Game has not started yet</p>
+	
+	}
+	<EventList Events="game.Events.ToList()" />
 </div>
 
 
