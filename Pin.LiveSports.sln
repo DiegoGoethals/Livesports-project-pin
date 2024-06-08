@@ -9,8 +9,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pin.LiveSports.Core", "Pin.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pin.LiveSports.Infrastructure", "Pin.LiveSports.Infrastructure\Pin.LiveSports.Infrastructure.csproj", "{C1A2022E-9E05-4C0B-86E3-4C206E96B8E7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "New.In.DotNet.Console", "New.In.DotNet.Console\New.In.DotNet.Console.csproj", "{51BED8FD-33CB-4AB5-8A92-68CBEF26FBD1}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,10 +27,6 @@ Global
 		{C1A2022E-9E05-4C0B-86E3-4C206E96B8E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C1A2022E-9E05-4C0B-86E3-4C206E96B8E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C1A2022E-9E05-4C0B-86E3-4C206E96B8E7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{51BED8FD-33CB-4AB5-8A92-68CBEF26FBD1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{51BED8FD-33CB-4AB5-8A92-68CBEF26FBD1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{51BED8FD-33CB-4AB5-8A92-68CBEF26FBD1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{51BED8FD-33CB-4AB5-8A92-68CBEF26FBD1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
